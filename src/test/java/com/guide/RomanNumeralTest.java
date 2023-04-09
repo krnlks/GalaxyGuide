@@ -164,6 +164,6 @@ public class RomanNumeralTest {
         shouldBe.add("XL".toCharArray());
         shouldBe.add("IV".toCharArray());
 
-        assertEquals(shouldBe.toArray(), summands.toArray());
+        assertArrayEquals(shouldBe.toArray(), summands.toArray());
     }
 }

@@ -46,14 +46,15 @@ public class RomanNumerals {
     public static List<char[]> extractSummands(char[] numeralsCA) {
         List<char[]> res = new ArrayList<>(numeralsCA.length);
 
-        // Look at the two next symbols.
         for (int i=0; i<numeralsCA.length; i++) {
+            // Look at the two next symbols:
             // Small value preceding large value? Then that's a summand (group)
             if (i+1 < numeralsCA.length && Numerals.get(numeralsCA[i]) < Numerals.get(numeralsCA[i + 1])) {
                 char[] cArr = new char[2];
                 cArr[0] = numeralsCA[i];
                 cArr[1] = numeralsCA[i + 1];
                 res.add(cArr);
+                i++;
             // Otherwise, the summand is only the next symbol
             } else {
                 char[] cArr = new char[1];
