@@ -2,8 +2,10 @@ package com.guide;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RomanNumeralTest {
     @Test
@@ -146,5 +148,22 @@ public class RomanNumeralTest {
         assertThrows(NumberFormatException.class, () -> {
             RomanNumerals.toInt("CCM");
         });
+    }
+
+    @Test
+    public void testExtractSummands() {
+        String[] testLiterals = new String[]{
+                "MCMXLIV"
+        };
+
+        List<char[]> summands = RomanNumerals.extractSummands(testLiterals[0]);
+
+        List<char[]> shouldBe = new ArrayList<>();
+        shouldBe.add("M".toCharArray());
+        shouldBe.add("CM".toCharArray());
+        shouldBe.add("XL".toCharArray());
+        shouldBe.add("IV".toCharArray());
+
+        assertEquals(shouldBe.toArray(), summands.toArray());
     }
 }
