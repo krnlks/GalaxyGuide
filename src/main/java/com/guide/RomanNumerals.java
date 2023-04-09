@@ -65,6 +65,9 @@ public class RomanNumerals {
      * One symbol otherwise.
      */
     public static List<char[]> extractSummands(char[] numeralsCA) {
+        if (numeralsCA == null || numeralsCA.length == 0)
+            throw new IllegalArgumentException();
+
         List<char[]> res = new ArrayList<>(numeralsCA.length);
 
         for (int i=0; i<numeralsCA.length; i++) {
