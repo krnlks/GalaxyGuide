@@ -9,23 +9,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RomanNumeralTest {
     @Test
-    void addNumeralsExample1() {
-        assertEquals(RomanNumerals.toInt("MMVI"), 2006);
-    }
-
-    @Test
-    void addNumeralsExample2() {
-        assertEquals(RomanNumerals.toInt("MCMXLIV"), 1944);
+    void addNumeralsExamples() {
+        assertEquals(2006, RomanNumerals.toInt("MMVI"));
+        assertEquals(1944, RomanNumerals.toInt("MCMXLIV"));
     }
 
     @Test
     void addValuesWhenSmallSucceedsLarge() {
-        assertEquals(RomanNumerals.toInt("VI"), 6);
+        assertEquals(6, RomanNumerals.toInt("VI"));
     }
 
     @Test
     void subtractValuesWhenSmallPrecedesLarge() {
-        assertEquals(RomanNumerals.toInt("IV"), 4);
+        assertEquals(4, RomanNumerals.toInt("IV"));
     }
 
     @Test
@@ -92,8 +88,8 @@ public class RomanNumeralTest {
             RomanNumerals.toInt("IM");
         });
 
-        assertEquals(RomanNumerals.toInt("IV"), 4);
-        assertEquals(RomanNumerals.toInt("IX"), 9);
+        assertEquals(4, RomanNumerals.toInt("IV"));
+        assertEquals(9, RomanNumerals.toInt("IX"));
     }
 
     @Test
@@ -105,14 +101,14 @@ public class RomanNumeralTest {
             RomanNumerals.toInt("XM");
         });
 
-        assertEquals(RomanNumerals.toInt("XL"), 40);
-        assertEquals(RomanNumerals.toInt("XC"), 90);
+        assertEquals(40, RomanNumerals.toInt("XL"));
+        assertEquals(90, RomanNumerals.toInt("XC"));
     }
 
     @Test
     void CCanBeSubtractedFromDAndMOnly() {
-        assertEquals(RomanNumerals.toInt("CD"), 400);
-        assertEquals(RomanNumerals.toInt("CM"), 900);
+        assertEquals(400, RomanNumerals.toInt("CD"));
+        assertEquals(900, RomanNumerals.toInt("CM"));
     }
 
     @Test
