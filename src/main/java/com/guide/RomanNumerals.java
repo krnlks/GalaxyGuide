@@ -28,10 +28,31 @@ public class RomanNumerals {
 
         List<char[]> summands = extractSummands(numeralsCA);
 
-        for (char[] ca: summands) {
-            System.out.println(ca);
+        return sumUpSummands(summands);
+    }
+
+    private static int sumUpSummands(List<char[]> summands) throws IllegalArgumentException  {
+        if (summands == null || summands.size() == 0)
+            throw new IllegalArgumentException();
+
+        int sum = 0;
+
+        for (char[] summand : summands) {
+            switch (summand.length){
+                case 1:
+                    sum += Numerals.get(summand[0]);
+                    break;
+                case 2:
+                    int addend = Numerals.get((summand)[1])
+                            - Numerals.get((summand[0]));
+                    sum += addend;
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
-        return 0;
+
+        return sum;
     }
 
     public static List<char[]> extractSummands(String numerals) {
