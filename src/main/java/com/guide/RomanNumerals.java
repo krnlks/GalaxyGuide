@@ -19,14 +19,13 @@ public class RomanNumerals {
     }
 
     public static int toInt(String numerals) {
-        char[] numeralsCA = numerals.toCharArray();
-
         if (numerals.length() == 0)
             throw new NumberFormatException("Empty string is not allowed");
-        if (numerals.length() == 1)
-            return Numerals.get(numeralsCA[0]);
 
-        List<char[]> summands = extractSummands(numeralsCA);
+        if (numerals.length() == 1)
+            return Numerals.get(numerals.charAt(0));
+
+        List<char[]> summands = extractSummands(numerals);
 
         return sumUpSummands(summands);
     }
