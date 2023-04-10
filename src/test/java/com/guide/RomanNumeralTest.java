@@ -171,4 +171,19 @@ public class RomanNumeralTest {
         assertEquals("MMMCMX", RomanNumerals.getNumeral(3910));
         assertEquals("MMMCMXCIX", RomanNumerals.getNumeral(3999));
     }
+
+    @Test
+    void testGetParts() {
+        var ex1 = new Integer[] {1000, 900, 3};
+        var ex2 = new Integer[] {2000, 6};
+        var ex3 = new Integer[] {1000, 900, 40, 4};
+        var ex4 = new Integer[] {3000, 900, 10};
+        var ex5 = new Integer[] {3000, 900, 90, 9};
+
+        assertArrayEquals(ex1, RomanNumerals.getParts(1903).toArray());
+        assertArrayEquals(ex2, RomanNumerals.getParts(2006).toArray());
+        assertArrayEquals(ex3, RomanNumerals.getParts(1944).toArray());
+        assertArrayEquals(ex4, RomanNumerals.getParts(3910).toArray());
+        assertArrayEquals(ex5, RomanNumerals.getParts(3999).toArray());
+    }
 }

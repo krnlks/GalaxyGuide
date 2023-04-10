@@ -100,6 +100,27 @@ public class RomanNumerals {
             throw new IllegalArgumentException(
                     "Numbers larger than " + VAL_MAX + " cannot be expressed as a Roman numeral");
 
+        List<Integer> parts = getParts(i);
+
         return "";
+    }
+
+    /**
+     * @return Parts, or components, of an integer.
+     * Prerequisite for converting to Roman numeral.
+     */
+    public static List<Integer> getParts(int i) {
+        List<Integer> parts = new ArrayList<>(String.valueOf(i).length());
+
+        int placeValue = 1;
+        while (i > 0){
+            int part = i % 10;
+            if (part > 0)
+                parts.add(0, part * placeValue);
+            placeValue *= 10;
+            i /= 10;
+        }
+
+        return parts;
     }
 }
