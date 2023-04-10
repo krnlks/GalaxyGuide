@@ -1,17 +1,18 @@
 package com.guide;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RomanNumerals {
     public static final int VAL_MIN = 1;
     public static final int VAL_MAX = 3999;
 
-    private static Map<Character, Integer> Numerals;
+    private static BiMap<Character, Integer> Numerals;
     static {
-        Numerals = new HashMap<>();
+        Numerals = HashBiMap.create();
         Numerals.put('I', 1);
         Numerals.put('V', 5);
         Numerals.put('X', 10);
