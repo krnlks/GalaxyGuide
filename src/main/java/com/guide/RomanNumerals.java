@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RomanNumerals {
+    public static final int VAL_MIN = 1;
+    public static final int VAL_MAX = 3999;
+
     private static Map<Character, Integer> Numerals;
     static {
         Numerals = new HashMap<>();
@@ -88,4 +91,15 @@ public class RomanNumerals {
         return res;
     }
 
+    public static String getNumeral(int i) {
+        if (i < VAL_MIN)
+            throw new IllegalArgumentException(
+                    "Numbers smaller than " + VAL_MIN + " cannot be expressed as a Roman numeral");
+
+        if (i > VAL_MAX)
+            throw new IllegalArgumentException(
+                    "Numbers larger than " + VAL_MAX + " cannot be expressed as a Roman numeral");
+
+        return "";
+    }
 }

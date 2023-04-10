@@ -162,4 +162,13 @@ public class RomanNumeralTest {
 
         assertArrayEquals(shouldBe.toArray(), summands.toArray());
     }
+
+    @Test
+    void testGetNumeralExamples() {
+        assertEquals("MCMIII", RomanNumerals.getNumeral(1903));
+        assertEquals("MMVI", RomanNumerals.getNumeral(2006));
+        assertEquals("MCMXLIV", RomanNumerals.getNumeral(1944));
+        assertEquals("MMMCMX", RomanNumerals.getNumeral(3910));
+        assertEquals("MMMCMXCIX", RomanNumerals.getNumeral(3999));
+    }
 }
