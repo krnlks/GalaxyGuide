@@ -5,144 +5,146 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.guide.RomanNumerals.getParts;
+import static com.guide.RomanNumerals.getRomanNumber;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RomanNumeralTest {
     @Test
     void addNumeralsExamples() {
-        assertEquals(2006, RomanNumerals.toInt("MMVI"));
-        assertEquals(1944, RomanNumerals.toInt("MCMXLIV"));
+        assertEquals(2006, RomanNumerals.getInt("MMVI"));
+        assertEquals(1944, RomanNumerals.getInt("MCMXLIV"));
     }
 
     @Test
     void addValuesWhenSmallSucceedsLarge() {
-        assertEquals(6, RomanNumerals.toInt("VI"));
+        assertEquals(6, RomanNumerals.getInt("VI"));
     }
 
     @Test
     void subtractValuesWhenSmallPrecedesLarge() {
-        assertEquals(4, RomanNumerals.toInt("IV"));
+        assertEquals(4, RomanNumerals.getInt("IV"));
     }
 
     @Test
     void dontRepeatIMoreThanThrice() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IIII");
+            RomanNumerals.getInt("IIII");
         });
     }
 
     @Test
     void dontRepeatXMoreThanThrice() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("XXXX");
+            RomanNumerals.getInt("XXXX");
         });
     }
 
     @Test
     void dontRepeatCMoreThanThrice() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("CCCC");
+            RomanNumerals.getInt("CCCC");
         });
     }
 
     @Test
     void dontRepeatMMoreThanThrice() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("MMMM");
+            RomanNumerals.getInt("MMMM");
         });
     }
 
     @Test
     void dontRepeatD() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("DD");
+            RomanNumerals.getInt("DD");
         });
     }
 
     @Test
     void dontRepeatL() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("LL");
+            RomanNumerals.getInt("LL");
         });
     }
 
     @Test
     void dontRepeatV() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("VV");
+            RomanNumerals.getInt("VV");
         });
     }
 
     @Test
     void ICanBeSubtractedFromVAndXOnly() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IL");
+            RomanNumerals.getInt("IL");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IC");
+            RomanNumerals.getInt("IC");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("ID");
+            RomanNumerals.getInt("ID");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IM");
+            RomanNumerals.getInt("IM");
         });
 
-        assertEquals(4, RomanNumerals.toInt("IV"));
-        assertEquals(9, RomanNumerals.toInt("IX"));
+        assertEquals(4, RomanNumerals.getInt("IV"));
+        assertEquals(9, RomanNumerals.getInt("IX"));
     }
 
     @Test
     void XCanBeSubtractedFromLAndCOnly() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("XD");
+            RomanNumerals.getInt("XD");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("XM");
+            RomanNumerals.getInt("XM");
         });
 
-        assertEquals(40, RomanNumerals.toInt("XL"));
-        assertEquals(90, RomanNumerals.toInt("XC"));
+        assertEquals(40, RomanNumerals.getInt("XL"));
+        assertEquals(90, RomanNumerals.getInt("XC"));
     }
 
     @Test
     void CCanBeSubtractedFromDAndMOnly() {
-        assertEquals(400, RomanNumerals.toInt("CD"));
-        assertEquals(900, RomanNumerals.toInt("CM"));
+        assertEquals(400, RomanNumerals.getInt("CD"));
+        assertEquals(900, RomanNumerals.getInt("CM"));
     }
 
     @Test
     void doNotSubtractVLD() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("VX");
+            RomanNumerals.getInt("VX");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("LC");
+            RomanNumerals.getInt("LC");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("DM");
+            RomanNumerals.getInt("DM");
         });
     }
 
     @Test
     void SubtractOnlyOneSmallValueSymbolFromAnyLargeValueSymbol() {
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IIV");
+            RomanNumerals.getInt("IIV");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("IIX");
+            RomanNumerals.getInt("IIX");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("XXL");
+            RomanNumerals.getInt("XXL");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("XXC");
+            RomanNumerals.getInt("XXC");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("CCD");
+            RomanNumerals.getInt("CCD");
         });
         assertThrows(NumberFormatException.class, () -> {
-            RomanNumerals.toInt("CCM");
+            RomanNumerals.getInt("CCM");
         });
     }
 
@@ -164,12 +166,12 @@ public class RomanNumeralTest {
     }
 
     @Test
-    void testGetNumeralExamples() {
-        assertEquals("MCMIII", RomanNumerals.getNumeral(1903));
-        assertEquals("MMVI", RomanNumerals.getNumeral(2006));
-        assertEquals("MCMXLIV", RomanNumerals.getNumeral(1944));
-        assertEquals("MMMCMX", RomanNumerals.getNumeral(3910));
-        assertEquals("MMMCMXCIX", RomanNumerals.getNumeral(3999));
+    void testGetRomanNumber_int() {
+        assertEquals("MCMIII", getRomanNumber(1903));
+        assertEquals("MMVI", getRomanNumber(2006));
+        assertEquals("MCMXLIV", getRomanNumber(1944));
+        assertEquals("MMMCMX", getRomanNumber(3910));
+        assertEquals("MMMCMXCIX", getRomanNumber(3999));
     }
 
     @Test
@@ -180,10 +182,10 @@ public class RomanNumeralTest {
         var ex4 = new Integer[] {3000, 900, 10};
         var ex5 = new Integer[] {3000, 900, 90, 9};
 
-        assertArrayEquals(ex1, RomanNumerals.getParts(1903).toArray());
-        assertArrayEquals(ex2, RomanNumerals.getParts(2006).toArray());
-        assertArrayEquals(ex3, RomanNumerals.getParts(1944).toArray());
-        assertArrayEquals(ex4, RomanNumerals.getParts(3910).toArray());
-        assertArrayEquals(ex5, RomanNumerals.getParts(3999).toArray());
+        assertArrayEquals(ex1, getParts(1903).toArray());
+        assertArrayEquals(ex2, getParts(2006).toArray());
+        assertArrayEquals(ex3, getParts(1944).toArray());
+        assertArrayEquals(ex4, getParts(3910).toArray());
+        assertArrayEquals(ex5, getParts(3999).toArray());
     }
 }

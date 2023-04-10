@@ -21,14 +21,14 @@ public class RomanNumerals {
         Numerals.put('M', 1000);
     }
 
-    public static int toInt(String numerals) {
-        if (numerals.length() == 0)
+    public static int getInt(String romanNumber) {
+        if (romanNumber.length() == 0)
             throw new NumberFormatException("Empty string is not allowed");
 
-        if (numerals.length() == 1)
-            return Numerals.get(numerals.charAt(0));
+        if (romanNumber.length() == 1)
+            return Numerals.get(romanNumber.charAt(0));
 
-        List<char[]> summands = extractSummands(numerals);
+        List<char[]> summands = extractSummands(romanNumber);
 
         return sumUpSummands(summands);
     }
@@ -91,7 +91,7 @@ public class RomanNumerals {
         return res;
     }
 
-    public static String getNumeral(int i) {
+    public static String getRomanNumber(int i) {
         if (i < VAL_MIN)
             throw new IllegalArgumentException(
                     "Numbers smaller than " + VAL_MIN + " cannot be expressed as a Roman numeral");
