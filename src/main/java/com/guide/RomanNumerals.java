@@ -102,7 +102,7 @@ public class RomanNumerals {
 
         List<Integer> parts = getParts(i);
 
-        return "";
+        return getRomanNumber(parts);
     }
 
     /**
@@ -122,5 +122,9 @@ public class RomanNumerals {
         }
 
         return parts;
+    }
+
+    public static String getRomanNumber(List<Integer> parts) {
+        return "";
     }
 }

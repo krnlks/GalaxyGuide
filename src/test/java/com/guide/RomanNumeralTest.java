@@ -3,6 +3,7 @@ package com.guide;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.guide.RomanNumerals.getParts;
@@ -187,5 +188,20 @@ public class RomanNumeralTest {
         assertArrayEquals(ex3, getParts(1944).toArray());
         assertArrayEquals(ex4, getParts(3910).toArray());
         assertArrayEquals(ex5, getParts(3999).toArray());
+    }
+
+    @Test
+    void testGetRomanNumber_parts() {
+        var ex1 = Arrays.asList(1000, 900, 3);
+        var ex2 = Arrays.asList(2000, 6);
+        var ex3 = Arrays.asList(1000, 900, 40, 4);
+        var ex4 = Arrays.asList(3000, 900, 10);
+        var ex5 = Arrays.asList(3000, 900, 90, 9);
+
+        assertEquals("MCMIII", RomanNumerals.getRomanNumber(ex1));
+        assertEquals("MMVI", RomanNumerals.getRomanNumber(ex2));
+        assertEquals("MCMXLIV", RomanNumerals.getRomanNumber(ex3));
+        assertEquals("MMMCMX", RomanNumerals.getRomanNumber(ex4));
+        assertEquals("MMMCMXCIX", RomanNumerals.getRomanNumber(ex5));
     }
 }
