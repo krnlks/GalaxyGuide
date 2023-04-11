@@ -14,16 +14,23 @@ public class RomanNumerals {
     public static final int VAL_MIN = 1;
     public static final int VAL_MAX = 3999;
 
-    private static BiMap<Character, Integer> Numerals;
+    private static BiMap<String, Integer> Numerals;
     static {
         Numerals = HashBiMap.create();
-        Numerals.put('I', 1);
-        Numerals.put('V', 5);
-        Numerals.put('X', 10);
-        Numerals.put('L', 50);
-        Numerals.put('C', 100);
-        Numerals.put('D', 500);
-        Numerals.put('M', 1000);
+        Numerals.put("I", 1);
+        Numerals.put("II", 2);
+        Numerals.put("III", 3);
+        Numerals.put("IV", 4);
+        Numerals.put("V", 5);
+        Numerals.put("VI", 6);
+        Numerals.put("VII", 7);
+        Numerals.put("VIII", 8);
+        Numerals.put("IX", 9);
+        Numerals.put("X", 10);
+        Numerals.put("L", 50);
+        Numerals.put("C", 100);
+        Numerals.put("D", 500);
+        Numerals.put("M", 1000);
     }
 
     public static int getInt(String romanNumber) {
