@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.guide.RomanNumerals.getParts;
-import static com.guide.RomanNumerals.getRomanNumber;
+import static com.guide.RomanNumerals.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -66,5 +65,11 @@ public class RomanNumeralsTest_Methods {
         assertEquals("MCMXLIV", RomanNumerals.getRomanNumber(ex3));
         assertEquals("MMMCMX", RomanNumerals.getRomanNumber(ex4));
         assertEquals("MMMCMXCIX", RomanNumerals.getRomanNumber(ex5));
+    }
+
+    @Test
+    void testScaleUpRomanNumber() {
+        assertEquals("XC", scaleUpRomanNumber("IX", 10));
+        assertEquals("CM", scaleUpRomanNumber("IX", 100));
     }
 }

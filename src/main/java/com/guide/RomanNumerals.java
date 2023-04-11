@@ -149,7 +149,7 @@ public class RomanNumerals {
         String romanNumber = "";
 
         for (int i : parts){
-            romanNumber.concat(getRomanNumberThatIsNx10ToTheK(i));
+            romanNumber = romanNumber.concat(getRomanNumberThatIsNx10ToTheK(i));
         }
 
         return romanNumber;
@@ -165,11 +165,28 @@ public class RomanNumerals {
         // Memorize the factor
         int factorDiffFromPartToSingleDigit = getFactor_DiffToSingleDigit(i);
         // romNo = GetRomanNumber(9); <- „IX“
-
+        String romanNumber = String.valueOf(Numerals.inverse().get(mostSignDigit));
         // romNo = Convert(romNo, reciproce(1/100)); <- „CM“
-
+        romanNumber = scaleUpRomanNumber(romanNumber, factorDiffFromPartToSingleDigit);
         // convert() converts symbol by symbol (I -> C, X -> M)
 
         return null;
+    }
+
+    /**
+     * @param romanNumber a Roman number
+     * @param factor the factor k by which {@code romanNumber} is to be scaled up
+     * @return the scaled up number, i.e., with trailing zeros. Format: n × 10^k
+     */
+    public static String scaleUpRomanNumber(String romanNumber, int factor) {
+        String scaledUpNumber = "";
+
+        for (char romanNumeral : romanNumber.toCharArray()) {   
+            int romanNumeral_intEquivalent = Numerals.get(String.valueOf(romanNumeral));
+            String scaledUpNumeral = Numerals.inverse().get(romanNumeral_intEquivalent * factor);
+            scaledUpNumber = scaledUpNumber.concat(scaledUpNumeral);
+        }
+
+        return scaledUpNumber;
     }
 }
