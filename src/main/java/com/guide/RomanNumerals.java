@@ -2,9 +2,13 @@ package com.guide;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.util.Helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.util.Helpers.getFactor_DiffToSingleDigit;
+import static com.util.Helpers.getMostSignDigit;
 
 public class RomanNumerals {
     public static final int VAL_MIN = 1;
@@ -101,6 +105,9 @@ public class RomanNumerals {
             throw new IllegalArgumentException(
                     "Numbers larger than " + VAL_MAX + " cannot be expressed as a Roman numeral");
 
+        if (Helpers.getNoOfDigits(i) == 1)
+            return String.valueOf(Numerals.inverse().get(i));
+
         List<Integer> parts = getParts(i);
 
         return getRomanNumber(parts);
@@ -125,7 +132,37 @@ public class RomanNumerals {
         return parts;
     }
 
+    /**
+     *
+     * @param parts integers in the form of n × 10^k, where n is an integer between 1 and 9 (inclusive),
+     *              and k is an integer between 0 and 3 (inclusive)
+     * @return the Roman number that is the concatenation of the Roman numerals of {@code parts}
+     */
     public static String getRomanNumber(List<Integer> parts) {
-        return "";
+        String romanNumber = "";
+
+        for (int i : parts){
+            romanNumber.concat(getRomanNumberThatIsNx10ToTheK(i));
+        }
+
+        return romanNumber;
+    }
+
+    /**
+      * @param i integer in the form of n × 10^k, where n is an integer between 1 and 9 (inclusive),
+      *              and k is an integer between 0 and 3 (inclusive)
+      * @return the Roman number that represents {@code i}.
+     */
+    private static String getRomanNumberThatIsNx10ToTheK(int i) {
+        int mostSignDigit = getMostSignDigit(i);
+        // Memorize the factor
+        int factorDiffFromPartToSingleDigit = getFactor_DiffToSingleDigit(i);
+        // romNo = GetRomanNumber(9); <- „IX“
+
+        // romNo = Convert(romNo, reciproce(1/100)); <- „CM“
+
+        // convert() converts symbol by symbol (I -> C, X -> M)
+
+        return null;
     }
 }
