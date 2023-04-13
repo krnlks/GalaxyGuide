@@ -170,6 +170,8 @@ public class RomanNumerals {
      * @return the Roman number that represents {@code i}.
      */
     private static String getRomanNumberThatIsNx10ToTheK(int i) {
+        checkValidNx10ToTheKNumber(i);
+
         int mostSignDigit = getMostSignDigit(i);
         // Memorize the factor
         int factorDiffFromPartToSingleDigit = getFactor_DiffToSingleDigit(i);
@@ -180,6 +182,16 @@ public class RomanNumerals {
         // convert() converts symbol by symbol (I -> C, X -> M)
 
         return null;
+    }
+
+    /**
+     * Checks whether integer i is a digit with zero to three trailing zeros.
+     * We need integers in this form as the building blocks to express Roman numbers.
+     */
+    private static void checkValidNx10ToTheKNumber(int i) {
+        String numStr = Integer.toString(i);
+        if (!numStr.matches("^[1-9]0{0,3}$"))
+            throw new IllegalArgumentException();
     }
 
     /**
