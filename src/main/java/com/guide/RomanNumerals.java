@@ -104,13 +104,7 @@ public class RomanNumerals {
     }
 
     public static String getRomanNumber(int i) {
-        if (i < VAL_MIN)
-            throw new IllegalArgumentException(
-                    "Numbers smaller than " + VAL_MIN + " cannot be expressed as a Roman numeral");
-
-        if (i > VAL_MAX)
-            throw new IllegalArgumentException(
-                    "Numbers larger than " + VAL_MAX + " cannot be expressed as a Roman numeral");
+        checkValidNumber(i);
 
         if (Helpers.getNoOfDigits(i) == 1)
             return String.valueOf(Numerals.inverse().get(i));
@@ -120,11 +114,24 @@ public class RomanNumerals {
         return getRomanNumber(parts);
     }
 
+    private static void checkValidNumber(int i) {
+        if (i < VAL_MIN)
+            throw new IllegalArgumentException(
+                    "Numbers smaller than " + VAL_MIN + " cannot be expressed through Roman numerals");
+
+        if (i > VAL_MAX)
+            throw new IllegalArgumentException(
+                    "Numbers larger than " + VAL_MAX + " cannot be expressed through Roman numerals");
+    }
+
     /**
      * @return Parts, or components, of an integer.
-     * Prerequisite for converting to Roman numeral.
+     * Resulting parts are in the form of a digit [1...9] with 0 to 3 trailing zeros.
+     * These can be concatenated to express a Roman number.
      */
     public static List<Integer> getParts(int i) {
+        checkValidNumber(i);
+
         List<Integer> parts = new ArrayList<>(String.valueOf(i).length());
 
         int placeValue = 1;
@@ -156,9 +163,11 @@ public class RomanNumerals {
     }
 
     /**
-      * @param i integer in the form of n × 10^k, where n is an integer between 1 and 9 (inclusive),
-      *              and k is an integer between 0 and 3 (inclusive)
-      * @return the Roman number that represents {@code i}.
+     * @param i integer in the form of n × 10^k, where n is an integer between 1 and 9 (inclusive),
+     * and k is an integer between 0 and 3 (inclusive). In other words, a digit [1...9] with 0 to 3
+     * trailing zeros.
+     *
+     * @return the Roman number that represents {@code i}.
      */
     private static String getRomanNumberThatIsNx10ToTheK(int i) {
         int mostSignDigit = getMostSignDigit(i);
@@ -181,7 +190,7 @@ public class RomanNumerals {
     public static String scaleUpRomanNumber(String romanNumber, int factor) {
         String scaledUpNumber = "";
 
-        for (char romanNumeral : romanNumber.toCharArray()) {   
+        for (char romanNumeral : romanNumber.toCharArray()) {
             int romanNumeral_intEquivalent = Numerals.get(String.valueOf(romanNumeral));
             String scaledUpNumeral = Numerals.inverse().get(romanNumeral_intEquivalent * factor);
             scaledUpNumber = scaledUpNumber.concat(scaledUpNumeral);
