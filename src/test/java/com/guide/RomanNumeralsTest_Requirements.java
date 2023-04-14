@@ -115,7 +115,25 @@ public class RomanNumeralsTest_Requirements {
             RomanNumerals.getInt("VX");
         });
         assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("VL");
+        });
+        assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("VC");
+        });
+        assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("VD");
+        });
+        assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("VM");
+        });
+        assertThrows(NumberFormatException.class, () -> {
             RomanNumerals.getInt("LC");
+        });
+        assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("LD");
+        });
+        assertThrows(NumberFormatException.class, () -> {
+            RomanNumerals.getInt("LM");
         });
         assertThrows(NumberFormatException.class, () -> {
             RomanNumerals.getInt("DM");

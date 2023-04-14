@@ -85,6 +85,17 @@ public class RomanNumerals {
         if (romanNumber.contains("XD")
                 || romanNumber.contains("XM"))
             throw new NumberFormatException("X can be subtracted from L and C only");
+
+        if (romanNumber.contains("VX")
+                || romanNumber.contains("VL")
+                || romanNumber.contains("VC")
+                || romanNumber.contains("VD")
+                || romanNumber.contains("VM")
+                || romanNumber.contains("LC")
+                || romanNumber.contains("LD")
+                || romanNumber.contains("LM")
+                || romanNumber.contains("DM"))
+            throw new NumberFormatException("V, L, and D cannot be subtracted");
     }
 
     private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
