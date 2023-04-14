@@ -51,6 +51,8 @@ public class RomanNumerals {
     }
 
     public static int getInt(String romanNumber) {
+        checkValidRomanNumber(romanNumber);
+
         if (romanNumber.length() == 0)
             throw new NumberFormatException("Empty string is not allowed");
 
@@ -60,6 +62,15 @@ public class RomanNumerals {
         List<String> summands = splitUpIntoRomanSummands(romanNumber);
 
         return sumUpSummands(summands);
+    }
+
+    private static void checkValidRomanNumber(String romanNumber) {
+        if (romanNumber.contains("VV")
+         || romanNumber.contains("LL")
+         || romanNumber.contains("DD"))
+            throw new NumberFormatException("V, L, and D cannot be repeated");
+
+
     }
 
     private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
