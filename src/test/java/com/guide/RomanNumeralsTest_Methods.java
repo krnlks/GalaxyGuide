@@ -66,10 +66,4 @@ public class RomanNumeralsTest_Methods {
         assertEquals("MMMCMX", RomanNumerals.getRomanNumber(ex4));
         assertEquals("MMMCMXCIX", RomanNumerals.getRomanNumber(ex5));
     }
-
-    @Test
-    void testScaleUpRomanNumber() {
-        assertEquals("XC", scaleUpRomanNumber("IX", 10));
-        assertEquals("CM", scaleUpRomanNumber("IX", 100));
-    }
 }

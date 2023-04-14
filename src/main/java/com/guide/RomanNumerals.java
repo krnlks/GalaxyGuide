@@ -7,13 +7,14 @@ import com.util.Helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.util.Helpers.getFactor_DiffToSingleDigit;
-import static com.util.Helpers.getMostSignDigit;
-
 public class RomanNumerals {
     public static final int VAL_MIN = 1;
     public static final int VAL_MAX = 3999;
 
+    /**
+     * The complete building blocks to express any Roman number between
+     * 1 and 3999 through concatenation of the defined symbols.
+     */
     private static BiMap<String, Integer> Numerals;
     static {
         Numerals = HashBiMap.create();
@@ -27,10 +28,26 @@ public class RomanNumerals {
         Numerals.put("VIII", 8);
         Numerals.put("IX", 9);
         Numerals.put("X", 10);
+        Numerals.put("XX", 20);
+        Numerals.put("XXX", 30);
+        Numerals.put("XL", 40);
         Numerals.put("L", 50);
+        Numerals.put("LX", 60);
+        Numerals.put("LXX", 70);
+        Numerals.put("LXXX", 80);
+        Numerals.put("XC", 90);
         Numerals.put("C", 100);
+        Numerals.put("CC", 200);
+        Numerals.put("CCC", 300);
+        Numerals.put("CD", 400);
         Numerals.put("D", 500);
+        Numerals.put("DC", 600);
+        Numerals.put("DCC", 700);
+        Numerals.put("DCCC", 800);
+        Numerals.put("CM", 900);
         Numerals.put("M", 1000);
+        Numerals.put("MM", 2000);
+        Numerals.put("MMM", 3000);
     }
 
     public static int getInt(String romanNumber) {
@@ -156,58 +173,9 @@ public class RomanNumerals {
         String romanNumber = "";
 
         for (int i : parts){
-            romanNumber = romanNumber.concat(getRomanNumberThatIsNx10ToTheK(i));
+            romanNumber = romanNumber.concat(Numerals.inverse().get(i));
         }
 
         return romanNumber;
-    }
-
-    /**
-     * @param i integer in the form of n × 10^k, where n is an integer between 1 and 9 (inclusive),
-     * and k is an integer between 0 and 3 (inclusive). In other words, a digit [1...9] with 0 to 3
-     * trailing zeros.
-     *
-     * @return the Roman number that represents {@code i}.
-     */
-    private static String getRomanNumberThatIsNx10ToTheK(int i) {
-        checkValidNx10ToTheKNumber(i);
-
-        int mostSignDigit = getMostSignDigit(i);
-        // Memorize the factor
-        int factorDiffFromPartToSingleDigit = getFactor_DiffToSingleDigit(i);
-        // romNo = GetRomanNumber(9); <- „IX“
-        String romanNumber = String.valueOf(Numerals.inverse().get(mostSignDigit));
-        // romNo = Convert(romNo, reciproce(1/100)); <- „CM“
-        romanNumber = scaleUpRomanNumber(romanNumber, factorDiffFromPartToSingleDigit);
-        // convert() converts symbol by symbol (I -> C, X -> M)
-
-        return null;
-    }
-
-    /**
-     * Checks whether integer i is a digit with zero to three trailing zeros.
-     * We need integers in this form as the building blocks to express Roman numbers.
-     */
-    private static void checkValidNx10ToTheKNumber(int i) {
-        String numStr = Integer.toString(i);
-        if (!numStr.matches("^[1-9]0{0,3}$"))
-            throw new IllegalArgumentException();
-    }
-
-    /**
-     * @param romanNumber a Roman number
-     * @param factor the factor k by which {@code romanNumber} is to be scaled up
-     * @return the scaled up number, i.e., with trailing zeros. Format: n × 10^k
-     */
-    public static String scaleUpRomanNumber(String romanNumber, int factor) {
-        String scaledUpNumber = "";
-
-        for (char romanNumeral : romanNumber.toCharArray()) {
-            int romanNumeral_intEquivalent = Numerals.get(String.valueOf(romanNumeral));
-            String scaledUpNumeral = Numerals.inverse().get(romanNumeral_intEquivalent * factor);
-            scaledUpNumber = scaledUpNumber.concat(scaledUpNumeral);
-        }
-
-        return scaledUpNumber;
     }
 }
