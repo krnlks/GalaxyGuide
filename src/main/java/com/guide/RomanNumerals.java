@@ -70,7 +70,11 @@ public class RomanNumerals {
          || romanNumber.contains("DD"))
             throw new NumberFormatException("V, L, and D cannot be repeated");
 
-
+        if (romanNumber.contains("IIII")
+                || romanNumber.contains("XXXX")
+                || romanNumber.contains("CCCC")
+                || romanNumber.contains("MMMM"))
+            throw new NumberFormatException("No symbol can be repeated more than thrice");
     }
 
     private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
