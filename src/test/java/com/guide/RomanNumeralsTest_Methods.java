@@ -12,18 +12,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RomanNumeralsTest_Methods {
     @Test
-    public void testExtractSummands() {
+    public void testSplitUpIntoRomanSummands() {
         String[] testLiterals = new String[]{
                 "MCMXLIV"
         };
 
-        List<char[]> summands = RomanNumerals.extractSummands(testLiterals[0]);
+        List<String> summands = RomanNumerals.splitUpIntoRomanSummands(testLiterals[0]);
 
-        List<char[]> shouldBe = new ArrayList<>();
-        shouldBe.add("M".toCharArray());
-        shouldBe.add("CM".toCharArray());
-        shouldBe.add("XL".toCharArray());
-        shouldBe.add("IV".toCharArray());
+        List<String> shouldBe = new ArrayList<>();
+        shouldBe.add("M");
+        shouldBe.add("CM");
+        shouldBe.add("XL");
+        shouldBe.add("IV");
 
         assertArrayEquals(shouldBe.toArray(), summands.toArray());
     }

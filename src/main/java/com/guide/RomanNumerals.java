@@ -55,27 +55,27 @@ public class RomanNumerals {
             throw new NumberFormatException("Empty string is not allowed");
 
         if (romanNumber.length() == 1)
-            return Numerals.get(romanNumber.charAt(0));
+            return Numerals.get(romanNumber);
 
-        List<char[]> summands = extractSummands(romanNumber);
+        List<String> summands = splitUpIntoRomanSummands(romanNumber);
 
         return sumUpSummands(summands);
     }
 
-    private static int sumUpSummands(List<char[]> summands) throws IllegalArgumentException  {
+    private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
         if (summands == null || summands.size() == 0)
             throw new IllegalArgumentException();
 
         int sum = 0;
 
-        for (char[] summand : summands) {
-            switch (summand.length){
+        for (String summand : summands) {
+            switch (summand.length()){
                 case 1:
-                    sum += Numerals.get(summand[0]);
+                    sum += Numerals.get(summand);
                     break;
                 case 2:
-                    int addend = Numerals.get((summand)[1])
-                            - Numerals.get((summand[0]));
+                    int addend = Numerals.get(summand.substring(1,2))
+                            - Numerals.get(summand.substring(0,1));
                     sum += addend;
                     break;
                 default:
@@ -86,36 +86,22 @@ public class RomanNumerals {
         return sum;
     }
 
-    public static List<char[]> extractSummands(String numerals) {
-        return extractSummands(numerals.toCharArray());
-    }
-
-    /**
-     * Here, a summand, or group, consists of either one or two symbols:
-     * Two symbols if a small value symbol precedes a large value symbol.
-     * One symbol otherwise.
-     */
-    public static List<char[]> extractSummands(char[] numeralsCA) {
-        if (numeralsCA == null || numeralsCA.length == 0)
+    public static List<String> splitUpIntoRomanSummands(String numerals) {
+        if (numerals == null || numerals.length() == 0)
             throw new IllegalArgumentException();
 
-        List<char[]> res = new ArrayList<>(numeralsCA.length);
+        List<String> res = new ArrayList<>(numerals.length());
 
-        for (int i=0; i<numeralsCA.length; i++) {
-            // Look at the two next symbols:
-            // Small value preceding large value? Then that's a summand (group)
-            if (i+1 < numeralsCA.length && Numerals.get(numeralsCA[i]) < Numerals.get(numeralsCA[i + 1])) {
-                char[] cArr = new char[2];
-                cArr[0] = numeralsCA[i];
-                cArr[1] = numeralsCA[i + 1];
-                res.add(cArr);
+        String next = "";
+        for (int i = 0; i < numerals.length(); i++) {
+            // Already add the next symbol
+            next = numerals.substring(i, i+1);
+            // Small value preceding large value? Then that's our next summand
+            if (i+1 < numerals.length() && Numerals.get(numerals.substring(i, i+1)) < Numerals.get(numerals.substring(i+1, i+2))) {
+                next = next.concat(numerals.substring(i+1, i+2));
                 i++;
-            // Otherwise, the summand is only the next symbol
-            } else {
-                char[] cArr = new char[1];
-                cArr[0] = numeralsCA[i];
-                res.add(cArr);
             }
+            res.add(next);
         }
         return res;
     }
