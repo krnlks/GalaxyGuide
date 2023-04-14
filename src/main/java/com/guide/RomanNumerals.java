@@ -96,6 +96,15 @@ public class RomanNumerals {
                 || romanNumber.contains("LM")
                 || romanNumber.contains("DM"))
             throw new NumberFormatException("V, L, and D cannot be subtracted");
+
+        if (romanNumber.contains("IIV")
+                || romanNumber.contains("IIX")
+                || romanNumber.contains("XXL")
+                || romanNumber.contains("XXC")
+                || romanNumber.contains("CCD")
+                || romanNumber.contains("CCM"))
+            throw new NumberFormatException("Only one small-value symbol may be subtracted\n" +
+                    "from any large-value symbol");
     }
 
     private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
