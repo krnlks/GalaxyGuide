@@ -75,6 +75,16 @@ public class RomanNumerals {
                 || romanNumber.contains("CCCC")
                 || romanNumber.contains("MMMM"))
             throw new NumberFormatException("No symbol can be repeated more than thrice");
+
+        if (romanNumber.contains("IL")
+                || romanNumber.contains("IC")
+                || romanNumber.contains("ID")
+                || romanNumber.contains("IM"))
+            throw new NumberFormatException("I can be subtracted from V and X only");
+
+        if (romanNumber.contains("XD")
+                || romanNumber.contains("XM"))
+            throw new NumberFormatException("X can be subtracted from L and C only");
     }
 
     private static int sumUpSummands(List<String> summands) throws IllegalArgumentException  {
