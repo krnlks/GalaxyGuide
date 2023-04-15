@@ -12,7 +12,7 @@ public class Converter {
         termsToNumerals = new HashMap<>(7);
     }
 
-    public String input(String input) {
+    public String generateResponse(String input) {
         input = input.toLowerCase().trim();
 
         String[] arr = input.split(" ");
@@ -51,7 +51,7 @@ public class Converter {
             if ("exit".equalsIgnoreCase(input)) {
                 exit = true;
             } else {
-                String response = c.input(input);
+                String response = c.generateResponse(input);
                 if (response.length() > 0)
                     System.out.println("Response: " + response);
             }
