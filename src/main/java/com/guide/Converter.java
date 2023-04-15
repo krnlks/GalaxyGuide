@@ -25,8 +25,8 @@ public class Converter {
         }
 
         boolean isNumberConversionQuery = (arr.length > 4
-                && input.substring(0,11).equals("how much is")
-                && arr[arr.length-1] == "?");
+                && input.substring(0,12).equals("how much is ")
+                && arr[arr.length-1].equals("?"));
         if (isNumberConversionQuery){
             String numberTerms = input.substring(12,input.length()-2);
             return generateNumberConversionQueryResponse(numberTerms);
