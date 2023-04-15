@@ -1,9 +1,6 @@
 package com.guide;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Converter {
     Map<String,String> termsToNumerals;
@@ -12,6 +9,9 @@ public class Converter {
         termsToNumerals = new HashMap<>(7);
     }
 
+    /**
+     * @return the response, if any
+     */
     public String generateResponse(String input) {
         input = input.toLowerCase().trim();
 
@@ -28,13 +28,30 @@ public class Converter {
                 && input.substring(0,11).equals("how much is")
                 && arr[arr.length-1] == "?");
         if (isNumberConversionQuery){
-            return "It's that much!";
+            String numberTerms = input.substring(12,input.length()-2);
+            return generateNumberConversionQueryResponse(numberTerms);
         }
+
         if (input.contains("how many credits is")) {
             return "That's so and so many credits!";
         }
 
         return "";
+    }
+
+    private String generateNumberConversionQueryResponse(String input) {
+        String[] arr = input.split(" ");
+
+        // Collect number terms
+        StringBuilder sb = new StringBuilder(arr.length);
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(termsToNumerals.get(arr[i]));
+        }
+
+        // Convert Roman to Arabic number
+        int result = RomanNumerals.getInt(sb.toString());
+
+        return input + " is " + result;
     }
 
     public static void main(String[] args) {
