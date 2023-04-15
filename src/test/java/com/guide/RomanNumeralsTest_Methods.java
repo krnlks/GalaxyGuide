@@ -66,4 +66,13 @@ public class RomanNumeralsTest_Methods {
         assertEquals("MMMCMX", RomanNumerals.getRomanNumber(ex4));
         assertEquals("MMMCMXCIX", RomanNumerals.getRomanNumber(ex5));
     }
+
+    @Test
+    void testConversionBackForth() {
+        for (int i = VAL_MIN; i <= VAL_MAX; i++) {
+            var romNo = getRomanNumber(i);
+            var convertedBack = getInt(romNo);
+            assertEquals(i, convertedBack);
+        }
+    }
 }
