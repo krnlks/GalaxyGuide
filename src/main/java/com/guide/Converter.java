@@ -32,11 +32,18 @@ public class Converter {
             return generateNumberConversionQueryResponse(numberTerms);
         }
 
-        if (input.contains("how many credits is")) {
-            return "That's so and so many credits!";
+        boolean isCreditsPerMetalQuery = (arr.length > 5
+                && input.substring(0,12).equals("how many credits is")
+                && arr[arr.length-1].equals("?"));
+        if (isCreditsPerMetalQuery) {
+            return generateCreditsPerMetalQueryResponse();
         }
 
         return "";
+    }
+
+    private String generateCreditsPerMetalQueryResponse() {
+        return null;
     }
 
     private String generateNumberConversionQueryResponse(String input) {
