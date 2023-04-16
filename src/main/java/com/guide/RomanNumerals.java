@@ -50,7 +50,6 @@ public class RomanNumerals {
         Numerals.put("MMM", 3000);
     }
 
-    // TODO: add variant of this method with param for already split up Roman number
     public static int getInt(String romanNumber) {
         checkValidRomanNumber(romanNumber);
 
