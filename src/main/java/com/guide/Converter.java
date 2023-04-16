@@ -1,6 +1,8 @@
 package com.guide;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Converter {
     Map<String,String> termsToNumerals;
@@ -21,12 +23,13 @@ public class Converter {
             return "";
         }
 
-        boolean isNumberConversionQuery = (arr.length > 4
-                && input.substring(0,12).equals("how much is ")
-                && arr[arr.length-1].equals("?"));
-        if (isNumberConversionQuery){
-            String numberTerms = input.substring(12,input.length()-2);
-            return generateNumberConversionQueryResponse(numberTerms);
+        Matcher m = tryParseNumberConversionQuery(input);
+        if (m.matches()){
+            List<String> matches = new ArrayList<>();
+            while (m.find()){
+                matches.add(m.group());
+            }
+            return generateNumberConversionQueryResponse(matches.toArray(new String[0]));
         }
 
         boolean isCreditsPerMetalQuery = (arr.length > 5
@@ -37,6 +40,13 @@ public class Converter {
         }
 
         return "";
+    }
+
+    private Matcher tryParseNumberConversionQuery(String input) {
+        // Require at least one term and make question mark optional
+        String numberConversionRegex = "how much is(?:\\s+(\\S+))+(?:\\s*\\?)?";
+        Pattern p = Pattern.compile(numberConversionRegex, Pattern.CASE_INSENSITIVE);
+        return p.matcher(input);
     }
 
     /**
@@ -53,19 +63,16 @@ public class Converter {
         return null;
     }
 
-    private String generateNumberConversionQueryResponse(String input) {
-        String[] arr = input.split(" ");
-
+    private String generateNumberConversionQueryResponse(String[] matches) {
         // Collect number terms
-        StringBuilder sb = new StringBuilder(arr.length);
-        for (int i = 0; i < arr.length; i++) {
-            sb.append(termsToNumerals.get(arr[i]));
+        StringBuilder romanNumerals = new StringBuilder(matches.length);
+        for (int i = 0; i < matches.length; i++) {
+            romanNumerals.append(termsToNumerals.get(matches[i]));
         }
 
-        // Convert Roman to Arabic number
-        int result = RomanNumerals.getInt(sb.toString().toUpperCase());
+        int result = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
 
-        return input + " is " + result;
+        return String.join(" ", matches) + " is " + result;
     }
 
     public static void main(String[] args) {
