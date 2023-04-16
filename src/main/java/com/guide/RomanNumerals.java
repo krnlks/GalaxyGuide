@@ -50,6 +50,7 @@ public class RomanNumerals {
         Numerals.put("MMM", 3000);
     }
 
+    /** Convert Roman to Arabic number */
     public static int getInt(String romanNumber) {
         checkValidRomanNumber(romanNumber);
 
