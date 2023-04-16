@@ -17,7 +17,7 @@ public class Converter {
 
         String[] arr = input.split(" ");
         boolean isDefinition = (arr.length == 3
-                && arr [1] == "is"
+                && arr[1].equals("is")
                 && Arrays.asList("i","v","x","l","c","d","m").contains(arr[2]));
         if (isDefinition) {
             termsToNumerals.put(arr[0], arr[2]);
