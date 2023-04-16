@@ -16,10 +16,7 @@ public class Converter {
         input = input.toLowerCase().trim();
 
         String[] arr = input.split(" ");
-        boolean isDefinition = (arr.length == 3
-                && arr[1].equals("is")
-                && Arrays.asList("i","v","x","l","c","d","m").contains(arr[2]));
-        if (isDefinition) {
+        if (isDefinition(arr)) {
             termsToNumerals.put(arr[0], arr[2]);
             return "";
         }
@@ -40,6 +37,16 @@ public class Converter {
         }
 
         return "";
+    }
+
+    /**
+     * @return true if {@code arr} is a valid definition of a term,
+     * i.e., a valid assignment of a term to a Roman numeral
+     */
+    private boolean isDefinition(String[] arr) {
+        return (arr.length == 3
+                && arr[1].equals("is")
+                && Arrays.asList("i","v","x","l","c","d","m").contains(arr[2]));
     }
 
     private String generateCreditsPerMetalQueryResponse() {
