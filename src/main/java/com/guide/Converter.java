@@ -49,7 +49,7 @@ public class Converter {
         }
 
         // Convert Roman to Arabic number
-        int result = RomanNumerals.getInt(sb.toString());
+        int result = RomanNumerals.getInt(sb.toString().toUpperCase());
 
         return input + " is " + result;
     }
