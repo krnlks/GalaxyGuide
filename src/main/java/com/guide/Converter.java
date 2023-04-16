@@ -5,6 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Converter {
+    /**
+     * A mapping from terms to Roman numerals.
+     * Contains previously entered mappings.
+     */
     Map<String,String> termsToNumerals;
 
     public Converter(){
@@ -12,6 +16,7 @@ public class Converter {
     }
 
     /**
+     * @param input the input string (or, query string)
      * @return the response, if any
      */
     public String generateResponse(String input) {
