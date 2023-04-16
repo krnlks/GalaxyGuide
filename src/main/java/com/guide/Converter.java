@@ -38,8 +38,8 @@ public class Converter {
         }
 
         boolean isCreditsPerMetalQuery = (arr.length > 5
-                && input.substring(0,12).equals("how many credits is")
-                && arr[arr.length-1].equals("?"));
+                && input.startsWith("how many credits is")
+                && input.endsWith("?"));
         if (isCreditsPerMetalQuery) {
             return generateCreditsPerMetalQueryResponse();
         }
