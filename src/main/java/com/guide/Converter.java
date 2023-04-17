@@ -97,15 +97,16 @@ public class Converter {
     private String generateNumberConversionQueryResponse(String input) {
         input = input.replace(NUMBER_CONVERSION_QUERY_START,"");
 
-        // Collect number terms
-        StringBuilder romanNumerals = new StringBuilder(matches.length);
-        for (int i = 0; i < matches.length; i++) {
-            romanNumerals.append(termsToNumerals.get(matches[i]));
+        String[] arr = input.split(" ");
+        // For each term get the Roman numeral
+        StringBuilder romanNumerals = new StringBuilder(arr.length);
+        for (String s : arr) {
+            romanNumerals.append(termsToNumerals.get(s));
         }
 
         int result = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
 
-        return String.join(" ", matches) + " is " + result;
+        return input + " is " + result;
     }
 
     private boolean isCreditsPerGoodsQuery(String input) {
