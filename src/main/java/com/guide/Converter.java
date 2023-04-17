@@ -1,8 +1,6 @@
 package com.guide;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Converter {
     /**
@@ -15,6 +13,9 @@ public class Converter {
      * Contains previously entered mappings.
      */
     Map<String, Float> metalsToCredits;
+
+    private static final String NUMBER_CONVERSION_QUERY_START = "how much is ";
+    private static final String CREDITS_GOODS_QUERY_START = "how many credits is ";
 
     public Converter(){
         termsToNumerals = new HashMap<>(7);
@@ -29,30 +30,24 @@ public class Converter {
         input = input.toLowerCase().trim();
 
         String[] arr = input.split(" ");
-        if (isAssignment_termToNumeral(arr)) {
+        if (isAssignment_termToNumeral(arr))
             return generateTermToNumeralAssignmentResponse(arr);
-        }
 
-        if (isAssignment_creditsToGoods(arr)) {
+        if (isAssignment_creditsToGoods(arr))
             return generateCreditsToGoodsAssignmentResponse(arr);
-        }
 
-        Matcher m = tryParseNumberConversionQuery(input);
-        if (m.matches()){
-            List<String> matches = new ArrayList<>();
-            for (int i = 1; i <= m.groupCount(); i++) {
-                if (m.group(i) != null) {
-                    matches.add(m.group(i));
-                }
-            }
-            return generateNumberConversionQueryResponse(matches.toArray(new String[0]));
-        }
+        if (isNumberConversionQuery(input))
+            return generateNumberConversionQueryResponse(input);
 
-        if (isCreditsPerMetalQuery(input)) {
-            return generateCreditsPerMetalQueryResponse();
-        }
+        if (isCreditsPerGoodsQuery(input))
+            return generateCreditsPerGoodsQueryResponse(input);
 
         return "";
+    }
+
+    private boolean isNumberConversionQuery(String input) {
+        return (input.startsWith(NUMBER_CONVERSION_QUERY_START)
+                && input.endsWith("?"));
     }
 
     /**
@@ -91,14 +86,8 @@ public class Converter {
         return "";
     }
 
-    private Matcher tryParseNumberConversionQuery(String input) {
-        // Require at least one term and make question mark optional
-        String numberConversionRegex = "how much is(?:\\s+(\\S+))+(?:\\s*\\?)?";
-        Pattern p = Pattern.compile(numberConversionRegex, Pattern.CASE_INSENSITIVE);
-        return p.matcher(input);
-    }
-
-    private String generateNumberConversionQueryResponse(String[] matches) {
+    private String generateNumberConversionQueryResponse(String input) {
+        input = input.replace(NUMBER_CONVERSION_QUERY_START,"");
         // Collect number terms
         StringBuilder romanNumerals = new StringBuilder(matches.length);
         for (int i = 0; i < matches.length; i++) {
@@ -110,13 +99,13 @@ public class Converter {
         return String.join(" ", matches) + " is " + result;
     }
 
-    private boolean isCreditsPerMetalQuery(String input) {
-        return (input.split(" ").length > 5
-                && input.startsWith("how many credits is")
+    private boolean isCreditsPerGoodsQuery(String input) {
+        return (input.startsWith(CREDITS_GOODS_QUERY_START)
                 && input.endsWith("?"));
     }
 
-    private String generateCreditsPerMetalQueryResponse() {
+    private String generateCreditsPerGoodsQueryResponse(String input) {
+        input = input.replace(CREDITS_GOODS_QUERY_START,"");
         return null;
     }
 
