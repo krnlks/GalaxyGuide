@@ -28,4 +28,12 @@ public class Helpers {
     public static String capitalizeFirstLetter (String str){
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
+
+    public static String tryFormatAsInt(float f)
+    {
+        if(f == (int) f)
+            return String.format("%d",(int)f);
+        else
+            return String.format("%s",f);
+    }
 }

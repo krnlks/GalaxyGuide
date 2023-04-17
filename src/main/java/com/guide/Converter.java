@@ -3,6 +3,7 @@ package com.guide;
 import java.util.*;
 
 import static com.util.Helpers.capitalizeFirstLetter;
+import static com.util.Helpers.tryFormatAsInt;
 
 public class Converter {
     /**
@@ -200,7 +201,7 @@ public class Converter {
         float credits = goodsToCredits.get(goods) * romanAsInt;
 
         // return "glob prok Silver is 68 Credits"
-        return alienTerms + " " + capitalizeFirstLetter(goods) + " is " + credits + " Credits";
+        return alienTerms + " " + capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
     }
 
     public static void main(String[] args) {
