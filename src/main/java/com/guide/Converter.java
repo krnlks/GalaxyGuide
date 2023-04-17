@@ -42,7 +42,7 @@ public class Converter {
         if (isCreditsPerGoodsQuery(query))
             return generateCreditsPerGoodsQueryResponse(query);
 
-        return "";
+        return "I have no idea what you are talking about";
     }
 
     private static String cleanUpQueryString(String input) {
