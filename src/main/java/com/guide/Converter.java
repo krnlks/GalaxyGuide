@@ -166,10 +166,21 @@ public class Converter {
         return (input.startsWith(CREDITS_GOODS_QUERY_START));
     }
 
+    /**
+     * @param input Format: "how many Credits is [alien terms]* [goods] (?)"
+     * @return the response in the format "[alien terms] [goods] is [credits] Credits"
+     */
     private String generateCreditsPerGoodsQueryResponse(String input) {
-        input = input.replace(CREDITS_GOODS_QUERY_START,"");
-        // TODO: Implement generateCreditsPerGoodsQueryResponse()
-        return null;
+        String alienAmountOfGoods = input.replace(CREDITS_GOODS_QUERY_START,"").trim();
+
+        // Extract the alien terms and the goods parts
+        // Reuse the alien terms extraction code from assignCreditsToGoods()
+
+        // Calculate credits (alien terms x credits stored for the goods)
+
+
+        // return "glob prok Silver is 68 Credits"
+        return alienAmountOfGoods + " is " + credits + " Credits";
     }
 
     public static void main(String[] args) {
