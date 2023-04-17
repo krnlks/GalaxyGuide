@@ -27,7 +27,7 @@ public class Converter {
      * @return the response, if any
      */
     public String generateResponse(String input) {
-        input = input.toLowerCase().trim();
+        input = cleanUpQueryString(input);
 
         String[] arr = input.split(" ");
         if (isAssignment_termToNumeral(arr))
@@ -45,9 +45,16 @@ public class Converter {
         return "";
     }
 
+    private static String cleanUpQueryString(String input) {
+        input = input.toLowerCase();
+        if (input.endsWith("?"))
+            input = input.substring(0, input.length()-1);
+        input = input.trim();
+        return input;
+    }
+
     private boolean isNumberConversionQuery(String input) {
-        return (input.startsWith(NUMBER_CONVERSION_QUERY_START)
-                && input.endsWith("?"));
+        return (input.startsWith(NUMBER_CONVERSION_QUERY_START));
     }
 
     /**
@@ -67,6 +74,7 @@ public class Converter {
      * Definitions must be in the form "prok prok Silver is 34 Credits"
      */
     private boolean isAssignment_creditsToGoods(String[] arr) {
+        // TODO: Implement isAssignment_creditsToGoods()
         return false;
     }
 
@@ -88,6 +96,7 @@ public class Converter {
 
     private String generateNumberConversionQueryResponse(String input) {
         input = input.replace(NUMBER_CONVERSION_QUERY_START,"");
+
         // Collect number terms
         StringBuilder romanNumerals = new StringBuilder(matches.length);
         for (int i = 0; i < matches.length; i++) {
@@ -100,12 +109,12 @@ public class Converter {
     }
 
     private boolean isCreditsPerGoodsQuery(String input) {
-        return (input.startsWith(CREDITS_GOODS_QUERY_START)
-                && input.endsWith("?"));
+        return (input.startsWith(CREDITS_GOODS_QUERY_START));
     }
 
     private String generateCreditsPerGoodsQueryResponse(String input) {
         input = input.replace(CREDITS_GOODS_QUERY_START,"");
+        // TODO: Implement generateCreditsPerGoodsQueryResponse()
         return null;
     }
 
