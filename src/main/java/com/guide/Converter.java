@@ -101,11 +101,10 @@ public class Converter {
      * @param input Format: "[alien terms]* [goods] (is) [number] (credit(s))".
      */
     private String assignCreditsToGoods(String input) {
-        // Get all contained alien terms
         List<String> parts = Arrays.asList(input.split(" "));
-        List<String> alienTerms = new ArrayList<>();
-
         var iter_parts = parts.iterator();
+
+        StringBuilder romanNumber = new StringBuilder();
 
         // Collect all alien terms
         String term = "";
@@ -114,7 +113,7 @@ public class Converter {
             var numeral = alienTermsToNumerals.get(term);
             if (numeral == null)
                 break;
-            alienTerms.add(term);
+            romanNumber.append(numeral);
         }
 
         // Get the goods
@@ -133,9 +132,11 @@ public class Converter {
             return invalidCreditsToGoodsAssignmentString();
         }
 
-        // Look up numerals of alien terms
+        // Get integer representation of Roman number
+        int numeralsAsInt =  RomanNumerals.getInt(romanNumber.toString());
 
-        // Credits /= integer representation of numerals
+        // Calculate credits for one unit of the goods
+        credits /= numeralsAsInt;
 
         goodsToCredits.put(goods, credits);
         return "";
