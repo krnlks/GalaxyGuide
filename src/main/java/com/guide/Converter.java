@@ -148,18 +148,18 @@ public class Converter {
     }
 
     private String generateNumberConversionQueryResponse(String input) {
-        input = input.replace(NUMBER_CONVERSION_QUERY_START,"");
+        String alienTerms = input.replace(NUMBER_CONVERSION_QUERY_START,"").trim();
 
-        String[] arr = input.split(" ");
+        String[] arr = alienTerms.split(" ");
         // For each term get the Roman numeral
         StringBuilder romanNumerals = new StringBuilder(arr.length);
         for (String s : arr) {
             romanNumerals.append(alienTermsToNumerals.get(s));
         }
 
-        int result = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
+        int intEquivalent = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
 
-        return input + " is " + result;
+        return alienTerms + " is " + intEquivalent;
     }
 
     private boolean isCreditsPerGoodsQuery(String input) {
