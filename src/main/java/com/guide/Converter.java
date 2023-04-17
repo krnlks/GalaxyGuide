@@ -133,7 +133,7 @@ public class Converter {
         }
 
         // Get integer representation of Roman number
-        int numeralsAsInt =  RomanNumerals.getInt(romanNumber.toString());
+        int numeralsAsInt =  RomanNumerals.getInt(romanNumber.toString().toUpperCase());
 
         // Calculate credits for one unit of the goods
         credits /= numeralsAsInt;
