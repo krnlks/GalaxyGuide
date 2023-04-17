@@ -17,16 +17,14 @@ public class ConverterTest {
     void testGenerateCreditsPerGoodsQueryResponse() {
         Converter c = new Converter();
         defineTerms(c);
+        assignCreditsToGood(c);
 
-        c.submitQuery("glob glob Silver is 34 Credits");
         String response = c.submitQuery("how many Credits is glob prok Silver ?");
         assertEquals("glob prok Silver is 68 Credits", response);
 
-        c.submitQuery("glob prok Gold is 57800 Credits");
         response = c.submitQuery("how many Credits is glob prok Gold ?");
         assertEquals("glob prok Gold is 57800 Credits", response);
 
-        c.submitQuery("pish pish Iron is 3910 Credits");
         response = c.submitQuery("how many Credits is glob prok Iron ?");
         assertEquals("glob prok Iron is 782 Credits", response);
     }
@@ -45,5 +43,11 @@ public class ConverterTest {
         c.submitQuery("prok is V");
         c.submitQuery("pish is X");
         c.submitQuery("tegj is L");
+    }
+
+    private static void assignCreditsToGood(Converter c) {
+        c.submitQuery("glob glob Silver is 34 Credits");
+        c.submitQuery("glob prok Gold is 57800 Credits");
+        c.submitQuery("pish pish Iron is 3910 Credits");
     }
 }
