@@ -1,8 +1,5 @@
 package com.guide;
 
-import com.google.common.collect.Iterators;
-import com.util.AlienTermPredicate;
-
 import java.util.*;
 
 public class Converter {
@@ -94,7 +91,8 @@ public class Converter {
     }
 
     /**
-     * Calculates the number of credits that one unit of the given goods is worth and stores it.
+     * Works through {@code input} and calculates the number of credits
+     * that one unit of the given goods is worth and stores it.
      *
      * <p>If no alien term is present, then the quantity of the goods is interpreted as 1.
      *
@@ -105,24 +103,24 @@ public class Converter {
     private String assignCreditsToGoods(String input) {
         // Get all contained alien terms
         List<String> parts = Arrays.asList(input.split(" "));
-        List<String> terms = new ArrayList<>();
+        List<String> alienTerms = new ArrayList<>();
 
         var iter_parts = parts.iterator();
 
-        var iter_alienTerms =
-                Iterators.filter(iter_parts, new AlienTermPredicate(alienTermsToNumerals));
-
-        while (iter_alienTerms.hasNext()) {
-            var alienTerm = iter_alienTerms.next();
-            // Advance the "parent" so we can look for other parts later
-            iter_parts.next();
-            terms.add(alienTerm);
+        // Collect all alien terms
+        String term = "";
+        while (iter_parts.hasNext()) {
+            term = iter_parts.next();
+            var numeral = alienTermsToNumerals.get(term);
+            if (numeral == null)
+                break;
+            alienTerms.add(term);
         }
 
         // Get the goods
-        String goods = iter_parts.next();
+        String goods = term;
         if (goods == null)
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException(invalidCreditsToGoodsAssignmentString());
 
         String nextElem = iter_parts.next();
         if (nextElem.equalsIgnoreCase("is"))
