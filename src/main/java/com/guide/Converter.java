@@ -1,5 +1,8 @@
 package com.guide;
 
+import com.google.common.collect.Iterators;
+import com.util.AlienTermPredicate;
+
 import java.util.*;
 
 public class Converter {
@@ -7,7 +10,7 @@ public class Converter {
      * A mapping from terms to Roman numerals.
      * Values must be defined in the chat before usage
      */
-    Map<String,String> termsToNumerals;
+    Map<String,String> alienTermsToNumerals;
     /**
      * A mapping from terms to Roman numerals.
      * Contains previously entered mappings.
@@ -18,7 +21,7 @@ public class Converter {
     private static final String CREDITS_GOODS_QUERY_START = "how many credits is ";
 
     public Converter(){
-        termsToNumerals = new HashMap<>(7);
+        alienTermsToNumerals = new HashMap<>(7);
         goodsToCredits = new HashMap<>();
     }
 
@@ -86,19 +89,69 @@ public class Converter {
     }
 
     private String assignTermToNumeral(String[] arr) {
-        termsToNumerals.put(arr[0], arr[2]);
+        alienTermsToNumerals.put(arr[0], arr[2]);
         return "";
     }
 
     /**
-     * Format: "glob glob Silver is 34 Credits"
+     * Calculates the number of credits that one unit of the given goods is worth and stores it.
+     *
+     * <p>If no alien term is present, then the quantity of the goods is interpreted as 1.
+     *
+     * <p>Example: "glob glob Silver is 34 Credits"
+     *
+     * @param input Format: "[alien terms]* [goods] (is) [number] (credit(s))".
      */
     private String assignCreditsToGoods(String input) {
-        String goods = "Silver";
-        // TODO: credits = 34 / glob glob
-        float credits = 0;
+        // Get all contained alien terms
+        List<String> parts = Arrays.asList(input.split(" "));
+        List<String> terms = new ArrayList<>();
+
+        var iter_parts = parts.iterator();
+
+        var iter_alienTerms =
+                Iterators.filter(iter_parts, new AlienTermPredicate(alienTermsToNumerals));
+
+        while (iter_alienTerms.hasNext()) {
+            var alienTerm = iter_alienTerms.next();
+            // Advance the "parent" so we can look for other parts later
+            iter_parts.next();
+            terms.add(alienTerm);
+        }
+
+        // Get the goods
+        String goods = iter_parts.next();
+        if (goods == null)
+            throw new IllegalArgumentException("");
+
+        String nextElem = iter_parts.next();
+        if (nextElem.equalsIgnoreCase("is"))
+            nextElem = iter_parts.next(); // We're not interested in "is"
+
+        float credits;
+        try {
+            credits = Float.parseFloat(iter_parts.next());
+        }catch (NumberFormatException e){
+            return invalidCreditsToGoodsAssignmentString();
+        }
+
+        if (iter_parts.hasNext()){
+            String credits_string = iter_parts.next();
+            if (!credits_string.equals("credit"))
+                throw new IllegalArgumentException(invalidCreditsToGoodsAssignmentString());
+        }
+
+        // Look up numerals of alien terms
+
+        // Credits /= integer representation of numerals
+
         goodsToCredits.put(goods, credits);
         return "";
+    }
+
+    private String invalidCreditsToGoodsAssignmentString() {
+        return "A valid credits to goods assignment has the form\n" +
+                "[alien terms]* [goods] (is) [number] credit(s)";
     }
 
     private String generateNumberConversionQueryResponse(String input) {
@@ -108,7 +161,7 @@ public class Converter {
         // For each term get the Roman numeral
         StringBuilder romanNumerals = new StringBuilder(arr.length);
         for (String s : arr) {
-            romanNumerals.append(termsToNumerals.get(s));
+            romanNumerals.append(alienTermsToNumerals.get(s));
         }
 
         int result = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
