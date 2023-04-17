@@ -130,7 +130,7 @@ public class Converter {
 
         float credits;
         try {
-            credits = Float.parseFloat(iter_parts.next());
+            credits = Float.parseFloat(nextElem);
         }catch (NumberFormatException e){
             return invalidCreditsToGoodsAssignmentString();
         }
