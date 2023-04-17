@@ -12,14 +12,14 @@ public class Converter {
      * A mapping from terms to Roman numerals.
      * Contains previously entered mappings.
      */
-    Map<String, Float> metalsToCredits;
+    Map<String, Float> goodsToCredits;
 
     private static final String NUMBER_CONVERSION_QUERY_START = "how much is ";
     private static final String CREDITS_GOODS_QUERY_START = "how many credits is ";
 
     public Converter(){
         termsToNumerals = new HashMap<>(7);
-        metalsToCredits = new HashMap<>();
+        goodsToCredits = new HashMap<>();
     }
 
     /**
@@ -33,8 +33,8 @@ public class Converter {
         if (isAssignment_termToNumeral(arr))
             return assignTermToNumeral(arr);
 
-        if (isAssignment_creditsToGoods(arr))
-            return assignCreditsToGoods(arr);
+        if (isAssignment_creditsToGoods(query))
+            return assignCreditsToGoods(query);
 
         if (isNumberConversionQuery(query))
             return generateNumberConversionQueryResponse(query);
@@ -71,11 +71,18 @@ public class Converter {
     /**
      * @return true if {@code arr} is a valid definition
      * of the value of one unit of a goods.
-     * Definitions must be in the form "prok prok Silver is 34 Credits"
+     * Format: "prok prok Silver is 34 Credits"
      */
-    private boolean isAssignment_creditsToGoods(String[] arr) {
-        // TODO: Implement isAssignment_creditsToGoods()
-        return false;
+    private boolean isAssignment_creditsToGoods(String query) {
+        return (!query.startsWith(NUMBER_CONVERSION_QUERY_START)
+                && !query.startsWith(CREDITS_GOODS_QUERY_START)
+                && containsNumber(query)
+                && query.contains("credit")
+                );
+    }
+
+    private boolean containsNumber(String str) {
+        return str.matches(".*\\d.*");
     }
 
     private String assignTermToNumeral(String[] arr) {
@@ -86,11 +93,11 @@ public class Converter {
     /**
      * Format: "glob glob Silver is 34 Credits"
      */
-    private String assignCreditsToGoods(String[] arr) {
-        String metal = "Silver";
+    private String assignCreditsToGoods(String input) {
+        String goods = "Silver";
         // TODO: credits = 34 / glob glob
         float credits = 0;
-        metalsToCredits.put(metal, credits);
+        goodsToCredits.put(goods, credits);
         return "";
     }
 
