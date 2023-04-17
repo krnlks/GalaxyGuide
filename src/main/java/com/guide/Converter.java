@@ -2,6 +2,8 @@ package com.guide;
 
 import java.util.*;
 
+import static com.util.Helpers.capitalizeFirstLetter;
+
 public class Converter {
     /**
      * A mapping from terms to Roman numerals.
@@ -16,6 +18,7 @@ public class Converter {
 
     private static final String NUMBER_CONVERSION_QUERY_START = "how much is ";
     private static final String CREDITS_GOODS_QUERY_START = "how many credits is ";
+    private static final String INVALID_QUERY_RESPONSE = "I have no idea what you are talking about";
 
     public Converter(){
         alienTermsToNumerals = new HashMap<>(7);
@@ -42,7 +45,7 @@ public class Converter {
         if (isCreditsPerGoodsQuery(query))
             return generateCreditsPerGoodsQueryResponse(query);
 
-        return "I have no idea what you are talking about";
+        return INVALID_QUERY_RESPONSE;
     }
 
     private static String cleanUpQueryString(String input) {
@@ -99,6 +102,7 @@ public class Converter {
      * <p>Example: "glob glob Silver is 34 Credits"
      *
      * @param input Format: "[alien terms]* [goods] (is) [number] (credit(s))".
+     * @return an empty String if successful
      */
     private String assignCreditsToGoods(String input) {
         List<String> parts = Arrays.asList(input.split(" "));
@@ -174,13 +178,29 @@ public class Converter {
         String alienAmountOfGoods = input.replace(CREDITS_GOODS_QUERY_START,"").trim();
 
         // Extract the alien terms and the goods parts
-        // Reuse the alien terms extraction code from assignCreditsToGoods()
+        int indexOfGoods = alienAmountOfGoods.lastIndexOf(" ")+1;
+        String goods = alienAmountOfGoods.substring(indexOfGoods);
+        String alienTerms = alienAmountOfGoods.substring(0, indexOfGoods-1);
+        
+        // Convert alien terms to Roman number
+        String[] arr = alienTerms.split(" ");
+        StringBuilder romanNumber = new StringBuilder();
+        for (String term : arr) {
+            String numeral = alienTermsToNumerals.get(term);
+            if (numeral == null)
+                return INVALID_QUERY_RESPONSE;
 
-        // Calculate credits (alien terms x credits stored for the goods)
+            romanNumber.append(numeral);
+        }
 
+        // Get integer representation of Roman number
+        int romanAsInt =  RomanNumerals.getInt(romanNumber.toString().toUpperCase());
+
+        // Calculate credits (credits stored for the goods x alien terms)
+        float credits = goodsToCredits.get(goods) * romanAsInt;
 
         // return "glob prok Silver is 68 Credits"
-        return alienAmountOfGoods + " is " + credits + " Credits";
+        return alienTerms + " " + capitalizeFirstLetter(goods) + " is " + credits + " Credits";
     }
 
     public static void main(String[] args) {
