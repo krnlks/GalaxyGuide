@@ -23,24 +23,24 @@ public class Converter {
     }
 
     /**
-     * @param input the input string (or, query string)
+     * @param query the input string (or, query string)
      * @return the response, if any
      */
-    public String generateResponse(String input) {
-        input = cleanUpQueryString(input);
+    public String submitQuery(String query) {
+        query = cleanUpQueryString(query);
 
-        String[] arr = input.split(" ");
+        String[] arr = query.split(" ");
         if (isAssignment_termToNumeral(arr))
-            return generateTermToNumeralAssignmentResponse(arr);
+            return assignTermToNumeral(arr);
 
         if (isAssignment_creditsToGoods(arr))
-            return generateCreditsToGoodsAssignmentResponse(arr);
+            return assignCreditsToGoods(arr);
 
-        if (isNumberConversionQuery(input))
-            return generateNumberConversionQueryResponse(input);
+        if (isNumberConversionQuery(query))
+            return generateNumberConversionQueryResponse(query);
 
-        if (isCreditsPerGoodsQuery(input))
-            return generateCreditsPerGoodsQueryResponse(input);
+        if (isCreditsPerGoodsQuery(query))
+            return generateCreditsPerGoodsQueryResponse(query);
 
         return "";
     }
@@ -78,7 +78,7 @@ public class Converter {
         return false;
     }
 
-    private String generateTermToNumeralAssignmentResponse(String[] arr) {
+    private String assignTermToNumeral(String[] arr) {
         termsToNumerals.put(arr[0], arr[2]);
         return "";
     }
@@ -86,7 +86,7 @@ public class Converter {
     /**
      * Format: "glob glob Silver is 34 Credits"
      */
-    private String generateCreditsToGoodsAssignmentResponse(String[] arr) {
+    private String assignCreditsToGoods(String[] arr) {
         String metal = "Silver";
         // TODO: credits = 34 / glob glob
         float credits = 0;
@@ -136,7 +136,7 @@ public class Converter {
             } else if ("usage".equalsIgnoreCase(input)) {
                 printUsageInfo();
             } else {
-                String response = c.generateResponse(input);
+                String response = c.submitQuery(input);
                 if (response.length() > 0)
                     System.out.println("Response: " + response);
             }

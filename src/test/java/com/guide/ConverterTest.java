@@ -5,29 +5,45 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConverterTest {
     @Test
-    void test() {
+    void testGenerateNumberConversionQueryResponse() {
         Converter c = new Converter();
-        c.generateResponse("glob is I");
-        c.generateResponse("prok is V");
-        c.generateResponse("pish is X");
-        c.generateResponse("tegj is L");
+        defineTerms(c);
 
-        String response = c.generateResponse("how much is pish tegj glob glob ?");
+        String response = c.submitQuery("how much is pish tegj glob glob ?");
         assertEquals("pish tegj glob glob is 42", response);
+    }
 
-        c.generateResponse("glob glob Silver is 34 Credits");
-        response = c.generateResponse("how many Credits is glob prok Silver ?");
+    @Test
+    void testGenerateCreditsPerGoodsQueryResponse() {
+        Converter c = new Converter();
+        defineTerms(c);
+
+        c.submitQuery("glob glob Silver is 34 Credits");
+        String response = c.submitQuery("how many Credits is glob prok Silver ?");
         assertEquals("glob prok Silver is 68 Credits", response);
 
-        c.generateResponse("glob prok Gold is 57800 Credits");
-        response = c.generateResponse("how many Credits is glob prok Gold ?");
+        c.submitQuery("glob prok Gold is 57800 Credits");
+        response = c.submitQuery("how many Credits is glob prok Gold ?");
         assertEquals("glob prok Gold is 57800 Credits", response);
 
-        c.generateResponse("pish pish Iron is 3910 Credits");
-        response = c.generateResponse("how many Credits is glob prok Iron ?");
+        c.submitQuery("pish pish Iron is 3910 Credits");
+        response = c.submitQuery("how many Credits is glob prok Iron ?");
         assertEquals("glob prok Iron is 782 Credits", response);
+    }
 
-        response = c.generateResponse("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?");
+    @Test
+    void testInvalidQueries() {
+        Converter c = new Converter();
+        defineTerms(c);
+
+        String response = c.submitQuery("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?");
         assertEquals("I have no idea what you are talking about", response);
+    }
+
+    private static void defineTerms(Converter c) {
+        c.submitQuery("glob is I");
+        c.submitQuery("prok is V");
+        c.submitQuery("pish is X");
+        c.submitQuery("tegj is L");
     }
 }
