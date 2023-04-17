@@ -135,12 +135,6 @@ public class Converter {
             return invalidCreditsToGoodsAssignmentString();
         }
 
-        if (iter_parts.hasNext()){
-            String credits_string = iter_parts.next();
-            if (!credits_string.equals("credit"))
-                throw new IllegalArgumentException(invalidCreditsToGoodsAssignmentString());
-        }
-
         // Look up numerals of alien terms
 
         // Credits /= integer representation of numerals
