@@ -159,7 +159,10 @@ public class Converter {
         // For each term get the Roman numeral
         StringBuilder romanNumerals = new StringBuilder(arr.length);
         for (String s : arr) {
-            romanNumerals.append(alienTermsToNumerals.get(s));
+            String foo = alienTermsToNumerals.get(s);
+            if (foo == null)
+                return String.format("I've never heard of %s", s);
+            romanNumerals.append(foo);
         }
 
         int intEquivalent;
