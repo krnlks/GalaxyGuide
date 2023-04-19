@@ -49,16 +49,16 @@ public class Converter {
         return INVALID_QUERY_RESPONSE;
     }
 
-    private static String cleanUpQueryString(String input) {
-        input = input.toLowerCase();
-        if (input.endsWith("?"))
-            input = input.substring(0, input.length()-1);
-        input = input.trim();
-        return input;
+    private static String cleanUpQueryString(String query) {
+        query = query.toLowerCase();
+        if (query.endsWith("?"))
+            query = query.substring(0, query.length()-1);
+        query = query.trim();
+        return query;
     }
 
-    private boolean isNumberConversionQuery(String input) {
-        return (input.startsWith(NUMBER_CONVERSION_QUERY_START));
+    private boolean isNumberConversionQuery(String query) {
+        return (query.startsWith(NUMBER_CONVERSION_QUERY_START));
     }
 
     /**
@@ -95,18 +95,18 @@ public class Converter {
     }
 
     /**
-     * Works through {@code input} and calculates the number of credits
+     * Works through {@code query} and calculates the number of credits
      * that one unit of the given goods is worth and stores it.
      *
      * <p>If no alien term is present, then the quantity of the goods is interpreted as 1.
      *
      * <p>Example: "glob glob Silver is 34 Credits"
      *
-     * @param input Format: "[alien terms]* [goods] (is) [number] (credit(s))".
+     * @param query Format: "[alien terms]* [goods] (is) [number] (credit(s))".
      * @return an empty String if successful
      */
-    private String assignCreditsToGoods(String input) {
-        List<String> parts = Arrays.asList(input.split(" "));
+    private String assignCreditsToGoods(String query) {
+        List<String> parts = Arrays.asList(query.split(" "));
         var iter_parts = parts.iterator();
 
         StringBuilder romanNumber = new StringBuilder();
@@ -152,12 +152,12 @@ public class Converter {
                 "[alien terms]* [goods] (is) [number] credit(s)";
     }
 
-    private String generateNumberConversionQueryResponse(String input) {
+    private String generateNumberConversionQueryResponse(String query) {
         // If we haven't defined any terms, stop here
         if (alienTermsToNumerals.isEmpty())
             return INVALID_QUERY_RESPONSE;
 
-        String alienTerms = input.replace(NUMBER_CONVERSION_QUERY_START,"").trim();
+        String alienTerms = query.replace(NUMBER_CONVERSION_QUERY_START,"").trim();
         if (alienTerms.length() == 0) // If query contains no terms, stop here
             return INVALID_QUERY_RESPONSE;
 
@@ -181,20 +181,20 @@ public class Converter {
         return alienTerms + " is " + intEquivalent;
     }
 
-    private boolean isCreditsPerGoodsQuery(String input) {
-        return (input.startsWith(CREDITS_GOODS_QUERY_START));
+    private boolean isCreditsPerGoodsQuery(String query) {
+        return (query.startsWith(CREDITS_GOODS_QUERY_START));
     }
 
     /**
-     * @param input Format: "how many Credits is [alien terms]* [goods] (?)"
+     * @param query Format: "how many Credits is [alien terms]* [goods] (?)"
      * @return the response in the format "[alien terms] [goods] is [credits] Credits"
      */
-    private String generateCreditsPerGoodsQueryResponse(String input) {
+    private String generateCreditsPerGoodsQueryResponse(String query) {
         // If we haven't stored any goods, stop here
         if (goodsToCredits.isEmpty())
             return INVALID_QUERY_RESPONSE;
 
-        String alienAmountOfGoods = input.replace(CREDITS_GOODS_QUERY_START,"").trim();
+        String alienAmountOfGoods = query.replace(CREDITS_GOODS_QUERY_START,"").trim();
 
         // Extract the alien terms and the goods parts
         int indexOfGoods = alienAmountOfGoods.lastIndexOf(" ")+1;
@@ -232,14 +232,14 @@ public class Converter {
                 "Type 'usage' for usage info and 'exit' to quit.\n");
 
         while (!exit) {
-            String input = scanner.nextLine();
+            String query = scanner.nextLine();
 
-            if ("exit".equalsIgnoreCase(input)) {
+            if ("exit".equalsIgnoreCase(query)) {
                 exit = true;
-            } else if ("usage".equalsIgnoreCase(input)) {
+            } else if ("usage".equalsIgnoreCase(query)) {
                 printUsageInfo();
             } else {
-                String response = c.submitQuery(input);
+                String response = c.submitQuery(query);
                 if (response.length() > 0)
                     System.out.printf("%s\n\n", response);
             }
