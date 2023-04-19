@@ -27,6 +27,21 @@ public class ConverterTest {
 
         response = c.submitQuery("how many Credits is glob prok Iron ?");
         assertEquals("glob prok Iron is 782 Credits", response);
+
+        // Test if we can leave out the amount and implicitly ask for one unit
+        String responseToOneUnit;
+
+        response = c.submitQuery("how many Credits is Silver ?");
+        responseToOneUnit = c.submitQuery("how many Credits is glob Silver ?");
+        assertEquals(responseToOneUnit, response);
+
+        response = c.submitQuery("how many Credits is Gold ?");
+        responseToOneUnit = c.submitQuery("how many Credits is glob Gold ?");
+        assertEquals(responseToOneUnit, response);
+
+        response = c.submitQuery("how many Credits is Iron ?");
+        responseToOneUnit = c.submitQuery("how many Credits is glob Iron ?");
+        assertEquals(responseToOneUnit, response);
     }
 
     @Test
