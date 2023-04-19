@@ -162,7 +162,12 @@ public class Converter {
             romanNumerals.append(alienTermsToNumerals.get(s));
         }
 
-        int intEquivalent = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
+        int intEquivalent;
+        try {
+            intEquivalent = RomanNumerals.getInt(romanNumerals.toString().toUpperCase());
+        }catch (NumberFormatException e){
+            return "Violation of Roman number format: " + e.getMessage();
+        }
 
         return alienTerms + " is " + intEquivalent;
     }
