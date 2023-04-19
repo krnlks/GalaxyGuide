@@ -158,11 +158,11 @@ public class Converter {
         String[] arr = alienTerms.split(" ");
         // For each term get the Roman numeral
         StringBuilder romanNumerals = new StringBuilder(arr.length);
-        for (String s : arr) {
-            String foo = alienTermsToNumerals.get(s);
-            if (foo == null)
-                return String.format("I've never heard of %s", s);
-            romanNumerals.append(foo);
+        for (String alienTerm : arr) {
+            String romanNumeral = alienTermsToNumerals.get(alienTerm);
+            if (romanNumeral == null)
+                return String.format("I've never heard of %s", alienTerm);
+            romanNumerals.append(romanNumeral);
         }
 
         int intEquivalent;
