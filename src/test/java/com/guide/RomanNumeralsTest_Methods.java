@@ -68,6 +68,8 @@ public class RomanNumeralsTest_Methods {
     }
 
     @Test
+    // For all integers that have a Roman number representation,
+    // convert them to Roman and then back.
     void testConversionBackForth() {
         for (int i = VAL_MIN; i <= VAL_MAX; i++) {
             var romNo = getRomanNumber(i);
