@@ -248,7 +248,17 @@ public class Converter {
         System.out.println("Goodbye!");
     }
 
-    private static void printUsageInfo() {
-        System.out.println("Usage info:");
+    public static void printUsageInfo() {
+        System.out.println("Define foreign terms for Roman numerals in the format\n" +
+                "'[term] is [Roman numeral]'\n");
+
+        System.out.println("Assign a number of credits to a goods in the format\n" +
+                "'[previously defined term1] [p. d. term2] [...] [goods] (is) [Arabic number of] (credit(s))'\n");
+
+        System.out.println("Convert a sequence of foreign numeral terms to an Arabic number by asking\n" +
+                "'How much is [p. d. term1] [term2] [...] (?)'\n");
+
+        System.out.println("Get the value in Credits of an amount of a goods by asking\n" +
+                "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
     }
 }
