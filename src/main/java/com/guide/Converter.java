@@ -210,13 +210,8 @@ public class Converter {
 
         boolean containsAlienTerms = indexOfGoods > 1;
         // If no alien terms are given, we assume one unit of the goods and return more quickly
-        if (!containsAlienTerms){
-            // The number of credits for one unit of the goods
-            float credits = goodsToCredits.get(goods);
-
-            // return "Silver is 17 Credits"
-            return capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
-        }
+        if (!containsAlienTerms)
+            return getResponseString(goods, "", 1);
 
         String alienTerms = alienAmountOfGoods.substring(0, indexOfGoods-1);
         
@@ -234,11 +229,26 @@ public class Converter {
         // Get integer representation of Roman number
         int romanAsInt =  RomanNumerals.getInt(romanNumber.toString().toUpperCase());
 
-        // Calculate credits (credits stored for the goods x alien terms)
-        float credits = goodsToCredits.get(goods) * romanAsInt;
+        return getResponseString(goods, alienTerms.concat(" "), romanAsInt);
+    }
 
-        // return "glob prok Silver is 68 Credits"
-        return alienTerms + " " + capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
+    /**
+     *
+     * @param goods the goods string, e.g. "Iron"
+     * @param alienTerms the alien terms including a trailing space, or an empty string in case of no alien terms
+     * @param amount the number of units of the goods. Must be 1 if no alien terms are passed
+     * @return the credits per goods response in the form "(glob prok )Silver is X Credits"
+     */
+    private String getResponseString(String goods, String alienTerms, int amount) {
+        // Calculate credits (credits stored for the goods x alien terms)
+        float credits = goodsToCredits.get(goods) * amount;
+        String ret = capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
+
+        if (amount == 1)
+            alienTerms = ""; // just to be on the safe side
+
+        // return "(glob prok )Silver is X Credits"
+        return alienTerms + ret;
     }
 
     public static void main(String[] args) {
