@@ -184,6 +184,10 @@ public class Converter {
      * @return the response in the format "[alien terms] [goods] is [credits] Credits"
      */
     private String generateCreditsPerGoodsQueryResponse(String input) {
+        // If we haven't stored any goods, stop here
+        if (goodsToCredits.isEmpty())
+            return INVALID_QUERY_RESPONSE;
+
         String alienAmountOfGoods = input.replace(CREDITS_GOODS_QUERY_START,"").trim();
 
         // Extract the alien terms and the goods parts
