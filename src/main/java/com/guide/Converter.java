@@ -200,7 +200,7 @@ public class Converter {
     private String generateCreditsPerGoodsQueryResponse(String query) {
         // If we haven't stored any goods, stop here
         if (goodsToCredits.isEmpty())
-            return "INVALID_QUERY_RESPONSE";
+            return "I know nothing about values of any goods";
 
         String alienAmountOfGoods = query.replace(CREDITS_GOODS_QUERY_START,"").trim();
 
