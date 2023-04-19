@@ -199,6 +199,17 @@ public class Converter {
         // Extract the alien terms and the goods parts
         int indexOfGoods = alienAmountOfGoods.lastIndexOf(" ")+1;
         String goods = alienAmountOfGoods.substring(indexOfGoods);
+
+        boolean containsAlienTerms = indexOfGoods > 1;
+        // If no alien terms are given, we assume one unit of the goods and return more quickly
+        if (!containsAlienTerms){
+            // The number of credits for one unit of the goods
+            float credits = goodsToCredits.get(goods);
+
+            // return "Silver is 17 Credits"
+            return capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
+        }
+
         String alienTerms = alienAmountOfGoods.substring(0, indexOfGoods-1);
         
         // Convert alien terms to Roman number
