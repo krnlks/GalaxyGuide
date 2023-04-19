@@ -19,7 +19,9 @@ public class ConverterTest {
         defineTerms(c);
         assignCreditsToGood(c);
 
-        String response = c.submitQuery("how many Credits is glob prok Silver ?");
+        String response;
+
+        response = c.submitQuery("how many Credits is glob prok Silver ?");
         assertEquals("glob prok Silver is 68 Credits", response);
 
         response = c.submitQuery("how many Credits is glob prok Gold ?");
