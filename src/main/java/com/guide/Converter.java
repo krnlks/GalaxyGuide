@@ -153,7 +153,13 @@ public class Converter {
     }
 
     private String generateNumberConversionQueryResponse(String input) {
+        // If we haven't defined any terms, stop here
+        if (alienTermsToNumerals.isEmpty())
+            return INVALID_QUERY_RESPONSE;
+
         String alienTerms = input.replace(NUMBER_CONVERSION_QUERY_START,"").trim();
+        if (alienTerms.length() == 0) // If query contains no terms, stop here
+            return INVALID_QUERY_RESPONSE;
 
         String[] arr = alienTerms.split(" ");
         // For each term get the Roman numeral
