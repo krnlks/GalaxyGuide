@@ -192,7 +192,7 @@ public class Converter {
     private String generateCreditsPerGoodsQueryResponse(String query) {
         // If we haven't stored any goods, stop here
         if (goodsToCredits.isEmpty())
-            return INVALID_QUERY_RESPONSE;
+            return "INVALID_QUERY_RESPONSE";
 
         String alienAmountOfGoods = query.replace(CREDITS_GOODS_QUERY_START,"").trim();
 
@@ -260,16 +260,29 @@ public class Converter {
     }
 
     public static void printUsageInfo() {
-        System.out.println("Define foreign terms for Roman numerals in the format\n" +
-                "'[term] is [Roman numeral]'\n");
+        printTermDefinitionInfo();
+        printCreditsToGoodsInfo();
+        printNumberConversionInfo();
+        printGoodsToCreditsInfo();
+    }
 
-        System.out.println("Assign a number of credits to a goods in the format\n" +
-                "'[previously defined term1] [p. d. term2] [...] [goods] (is) [Arabic number of] (credit(s))'\n");
-
-        System.out.println("Convert a sequence of foreign numeral terms to an Arabic number by asking\n" +
-                "'How much is [p. d. term1] [term2] [...] (?)'\n");
-
+    private static void printGoodsToCreditsInfo() {
         System.out.println("Get the value in Credits of an amount of a goods by asking\n" +
                 "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
+    }
+
+    private static void printTermDefinitionInfo() {
+        System.out.println("Define foreign terms for Roman numerals in the format\n" +
+                "'[term] is [Roman numeral]'\n");
+    }
+
+    private static void printNumberConversionInfo() {
+        System.out.println("Convert a sequence of foreign numeral terms to an Arabic number by asking\n" +
+                "'How much is [p. d. term1] [term2] [...] (?)'\n");
+    }
+
+    private static void printCreditsToGoodsInfo() {
+        System.out.println("Assign a number of credits to a goods in the format\n" +
+                "'[previously defined term1] [p. d. term2] [...] [goods] (is) [Arabic number of] (credit(s))'\n");
     }
 }
