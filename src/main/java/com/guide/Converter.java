@@ -218,8 +218,8 @@ public class Converter {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
-        System.out.println("Welcome to Convo, the Intergalactic Numbers and Units Converter!\n" +
-                "Type 'usage' for usage info and 'exit' to quit.");
+        System.out.println("Welcome to Convo, the Intergalactic Numbers and Units Converter!\n\n" +
+                "Type 'usage' for usage info and 'exit' to quit.\n");
 
         while (!exit) {
             String input = scanner.nextLine();
@@ -231,7 +231,7 @@ public class Converter {
             } else {
                 String response = c.submitQuery(input);
                 if (response.length() > 0)
-                    System.out.println("Convo: " + response);
+                    System.out.printf("%s\n\n", response);
             }
         }
 
