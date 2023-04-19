@@ -5,6 +5,9 @@ import java.util.*;
 import static com.util.Helpers.capitalizeFirstLetter;
 import static com.util.Helpers.tryFormatAsInt;
 
+/**
+ * Contains the chatbot, or, the user interface to the converter
+ */
 public class Converter {
     /**
      * A mapping from terms to Roman numerals.
@@ -152,6 +155,11 @@ public class Converter {
                 "[alien terms]* [goods] (is) [number] credit(s)";
     }
 
+    /**
+     *
+     * @param query a number conversion query in the form "how much is [alien term]+"
+     * @return the response containing the integer equivalent of the given sequence of terms
+     */
     private String generateNumberConversionQueryResponse(String query) {
         // If we haven't defined any terms, stop here
         if (alienTermsToNumerals.isEmpty())
