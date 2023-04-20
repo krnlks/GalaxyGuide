@@ -20,7 +20,7 @@ public class Converter {
     Map<String, Float> goodsToCredits;
 
     private static final String NUMBER_CONVERSION_QUERY_START = "how much is ";
-    private static final String CREDITS_GOODS_QUERY_START = "how many credits is ";
+    private static final String CREDITS_GOOD_QUERY_START = "how many credits is ";
     private static final String INVALID_QUERY_RESPONSE = "I have no idea what you are talking about";
 
     public Converter(){
@@ -39,14 +39,14 @@ public class Converter {
         if (isAssignment_termToNumeral(arr))
             return assignTermToNumeral(arr);
 
-        if (isAssignment_creditsToGoods(query))
-            return assignCreditsToGoods(query);
+        if (isAssignment_creditsToGood(query))
+            return assignCreditsToGood(query);
 
         if (isNumberConversionQuery(query))
             return generateNumberConversionQueryResponse(query);
 
-        if (isCreditsPerGoodsQuery(query))
-            return generateCreditsPerGoodsQueryResponse(query);
+        if (isCreditsPerGoodQuery(query))
+            return generateCreditsPerGoodQueryResponse(query);
 
         return INVALID_QUERY_RESPONSE;
     }
@@ -76,12 +76,12 @@ public class Converter {
 
     /**
      * @return true if {@code arr} is a valid definition
-     * of the value of one unit of a goods.
+     * of the value of one unit of a good.
      * Format: "prok prok Silver is 34 Credits"
      */
-    private boolean isAssignment_creditsToGoods(String query) {
+    private boolean isAssignment_creditsToGood(String query) {
         return (!query.startsWith(NUMBER_CONVERSION_QUERY_START)
-                && !query.startsWith(CREDITS_GOODS_QUERY_START)
+                && !query.startsWith(CREDITS_GOOD_QUERY_START)
                 && containsNumber(query)
                 && query.contains("credit")
                 );
@@ -96,16 +96,16 @@ public class Converter {
 
     /**
      * Works through {@code query} and calculates the number of credits
-     * that one unit of the given goods is worth and stores it.
+     * that one unit of the given good is worth and stores it.
      *
-     * <p>If no alien term is present, then the quantity of the goods is interpreted as 1.
+     * <p>If no alien term is present, then the quantity of the good is interpreted as 1.
      *
      * <p>Example: "glob glob Silver is 34 Credits"
      *
-     * @param query Format: "[alien terms]* [goods] (is) [number] (credit(s))".
+     * @param query Format: "[alien terms]* [good] (is) [number] (credit(s))".
      * @return an empty String if successful
      */
-    private String assignCreditsToGoods(String query) {
+    private String assignCreditsToGood(String query) {
         List<String> parts = Arrays.asList(query.split(" "));
         var iter_parts = parts.iterator();
 
@@ -121,10 +121,10 @@ public class Converter {
             romanNumber.append(numeral);
         }
 
-        // Get the goods
-        String goods = term;
-        if (goods == null)
-            throw new IllegalArgumentException(invalidCreditsToGoodsAssignmentString());
+        // Get the good
+        String good = term;
+        if (good == null)
+            throw new IllegalArgumentException(invalidCreditsToGoodAssignmentString());
 
         String nextElem = iter_parts.next();
         if (nextElem.equalsIgnoreCase("is"))
@@ -134,24 +134,24 @@ public class Converter {
         try {
             credits = Float.parseFloat(nextElem);
         }catch (NumberFormatException e){
-            return invalidCreditsToGoodsAssignmentString();
+            return invalidCreditsToGoodAssignmentString();
         }
 
         // If there were alien terms,
         if (!romanNumber.isEmpty()){
             // get the Roman number's integer representation
             int romanAsInt = RomanNumerals.getInt(romanNumber.toString().toUpperCase());
-            // and calculate credits for one unit of the goods
+            // and calculate credits for one unit of the good
             credits /= romanAsInt;
         }
 
-        goodsToCredits.put(goods, credits);
+        goodsToCredits.put(good, credits);
         return "";
     }
 
-    private String invalidCreditsToGoodsAssignmentString() {
-        return "A valid credits to goods assignment has the form\n" +
-                "[alien terms]* [goods] (is) [number] credit(s)";
+    private String invalidCreditsToGoodAssignmentString() {
+        return "A valid credits to good assignment has the form\n" +
+                "[alien terms]* [good] (is) [number] credit(s)";
     }
 
     /**
@@ -188,31 +188,31 @@ public class Converter {
         return alienTerms + " is " + intEquivalent;
     }
 
-    private boolean isCreditsPerGoodsQuery(String query) {
-        return (query.startsWith(CREDITS_GOODS_QUERY_START));
+    private boolean isCreditsPerGoodQuery(String query) {
+        return (query.startsWith(CREDITS_GOOD_QUERY_START));
     }
 
     /**
-     * @param query Format: "how many Credits is [alien terms]* [goods] (?)"
-     * @return the response in the format "[alien terms] [goods] is [credits] Credits"
+     * @param query Format: "how many Credits is [alien terms]* [good] (?)"
+     * @return the response in the format "[alien terms] [good] is [credits] Credits"
      */
-    private String generateCreditsPerGoodsQueryResponse(String query) {
+    private String generateCreditsPerGoodQueryResponse(String query) {
         // If we haven't stored any goods, stop here
         if (goodsToCredits.isEmpty())
             return "I know nothing about values of any goods";
 
-        String alienAmountOfGoods = query.replace(CREDITS_GOODS_QUERY_START,"").trim();
+        String alienAmountOfGood = query.replace(CREDITS_GOOD_QUERY_START,"").trim();
 
-        // Extract the alien terms and the goods parts
-        int indexOfGoods = alienAmountOfGoods.lastIndexOf(" ")+1;
-        String goods = alienAmountOfGoods.substring(indexOfGoods);
+        // Extract the alien terms part and the good part
+        int indexOfGood = alienAmountOfGood.lastIndexOf(" ")+1;
+        String good = alienAmountOfGood.substring(indexOfGood);
 
-        boolean containsAlienTerms = indexOfGoods > 1;
-        // If no alien terms are given, we assume one unit of the goods and return more quickly
+        boolean containsAlienTerms = indexOfGood > 1;
+        // If no alien terms are given, we assume one unit of the good and return more quickly
         if (!containsAlienTerms)
-            return getResponseString(goods, "", 1);
+            return getResponseString(good, "", 1);
 
-        String alienTerms = alienAmountOfGoods.substring(0, indexOfGoods-1);
+        String alienTerms = alienAmountOfGood.substring(0, indexOfGood-1);
         
         // Convert alien terms to Roman number
         String[] arr = alienTerms.split(" ");
@@ -228,20 +228,20 @@ public class Converter {
         // Get integer representation of Roman number
         int romanAsInt =  RomanNumerals.getInt(romanNumber.toString().toUpperCase());
 
-        return getResponseString(goods, alienTerms.concat(" "), romanAsInt);
+        return getResponseString(good, alienTerms.concat(" "), romanAsInt);
     }
 
     /**
      *
-     * @param goods the goods string, e.g. "Iron"
+     * @param good the good, e.g. "Iron"
      * @param alienTerms the alien terms including a trailing space, or an empty string in case of no alien terms
-     * @param amount the number of units of the goods. Must be 1 if no alien terms are passed
-     * @return the credits per goods response in the form "(glob prok )Silver is X Credits"
+     * @param amount the number of units of the good. Must be 1 if no alien terms are passed
+     * @return the credits per good response in the form "(glob prok )Silver is X Credits"
      */
-    private String getResponseString(String goods, String alienTerms, int amount) {
-        // Calculate credits (credits stored for the goods x alien terms)
-        float credits = goodsToCredits.get(goods) * amount;
-        String ret = capitalizeFirstLetter(goods) + " is " + tryFormatAsInt(credits) + " Credits";
+    private String getResponseString(String good, String alienTerms, int amount) {
+        // Calculate credits (credits stored for the good x alien terms)
+        float credits = goodsToCredits.get(good) * amount;
+        String ret = capitalizeFirstLetter(good) + " is " + tryFormatAsInt(credits) + " Credits";
 
         if (amount == 1)
             alienTerms = ""; // just to be on the safe side
@@ -278,9 +278,9 @@ public class Converter {
 
     public static void printUsageInfo() {
         printTermDefinitionInfo();
-        printAssignCreditsToGoodsInfo();
+        printAssignCreditsToGoodInfo();
         printNumberConversionInfo();
-        printNoGoodsToCreditsInfo();
+        printCreditsPerAmountOfGoodInfo();
     }
 
     private static void printTermDefinitionInfo() {
@@ -288,14 +288,14 @@ public class Converter {
                 "'[term] is [Roman numeral]'\n");
     }
 
-    private static void printAssignCreditsToGoodsInfo() {
+    private static void printAssignCreditsToGoodInfo() {
         System.out.println("Assign a number of credits to an amount of a good in the format\n" +
-                "'([previously defined term1] [p. d. term2] [...]) [goods] (is) [Arabic number of] (credit(s))'\n");
+                "'([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))'\n");
     }
 
-    private static void printNoGoodsToCreditsInfo() {
+    private static void printCreditsPerAmountOfGoodInfo() {
         System.out.println("Get the value in Credits of an amount of a good by asking\n" +
-                "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
+                "'How many Credits is [p. d. term1] [term2] ... [good] (?)'\n");
     }
 
     private static void printNumberConversionInfo() {
