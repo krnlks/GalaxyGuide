@@ -17,14 +17,6 @@ public class Helpers {
         return Character.digit(String.valueOf(i).charAt(0), 10);
     }
 
-    public static int getFactor_DiffToSingleDigit(int i) {
-        if (i <= 0) {
-            return 1;
-        }
-
-        return (int) Math.pow(10, Helpers.getNoOfDigits(i) - 1);
-    }
-
     public static String capitalizeFirstLetter (String str){
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
