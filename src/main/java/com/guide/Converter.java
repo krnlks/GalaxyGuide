@@ -294,7 +294,7 @@ public class Converter {
     }
 
     private static void printNoGoodsToCreditsInfo() {
-        System.out.println("Get the value in Credits of an amount of a goods by asking\n" +
+        System.out.println("Get the value in Credits of an amount of a good by asking\n" +
                 "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
     }
 
