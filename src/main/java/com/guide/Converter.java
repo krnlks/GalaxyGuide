@@ -2,8 +2,7 @@ package com.guide;
 
 import java.util.*;
 
-import static com.util.Helpers.capitalizeFirstLetter;
-import static com.util.Helpers.tryFormatAsInt;
+import static com.util.Helpers.*;
 
 /**
  * Contains the chatbot, or, the user interface to the converter
@@ -88,9 +87,7 @@ public class Converter {
                 );
     }
 
-    private boolean containsNumber(String str) {
-        return str.matches(".*\\d.*");
-    }
+
 
     private String assignTermToNumeral(String[] arr) {
         alienTermsToNumerals.put(arr[0], arr[2]);

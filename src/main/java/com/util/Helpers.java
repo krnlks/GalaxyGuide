@@ -36,4 +36,8 @@ public class Helpers {
         else
             return String.format("%s",f);
     }
+
+    public static boolean containsNumber(String str) {
+        return str.matches(".*\\d.*");
+    }
 }
