@@ -276,14 +276,9 @@ public class Converter {
 
     public static void printUsageInfo() {
         printTermDefinitionInfo();
-        printCreditsToGoodsInfo();
+        printAssignCreditsToGoodsInfo();
         printNumberConversionInfo();
-        printGoodsToCreditsInfo();
-    }
-
-    private static void printGoodsToCreditsInfo() {
-        System.out.println("Get the value in Credits of an amount of a goods by asking\n" +
-                "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
+        printNoGoodsToCreditsInfo();
     }
 
     private static void printTermDefinitionInfo() {
@@ -291,13 +286,18 @@ public class Converter {
                 "'[term] is [Roman numeral]'\n");
     }
 
+    private static void printAssignCreditsToGoodsInfo() {
+        System.out.println("Assign a number of credits to an amount of a good in the format\n" +
+                "'([previously defined term1] [p. d. term2] [...]) [goods] (is) [Arabic number of] (credit(s))'\n");
+    }
+
+    private static void printNoGoodsToCreditsInfo() {
+        System.out.println("Get the value in Credits of an amount of a goods by asking\n" +
+                "'How many Credits is [p. d. term1] [term2] ... [goods] (?)'\n");
+    }
+
     private static void printNumberConversionInfo() {
         System.out.println("Convert a sequence of foreign numeral terms to an Arabic number by asking\n" +
                 "'How much is [p. d. term1] [term2] [...] (?)'\n");
-    }
-
-    private static void printCreditsToGoodsInfo() {
-        System.out.println("Assign a number of credits to a goods in the format\n" +
-                "'[previously defined term1] [p. d. term2] [...] [goods] (is) [Arabic number of] (credit(s))'\n");
     }
 }
