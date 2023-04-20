@@ -137,11 +137,13 @@ public class Converter {
             return invalidCreditsToGoodsAssignmentString();
         }
 
-        // Get integer representation of Roman number
-        int romanAsInt =  RomanNumerals.getInt(romanNumber.toString().toUpperCase());
-
-        // Calculate credits for one unit of the goods
-        credits /= romanAsInt;
+        // If there were alien terms,
+        if (!romanNumber.isEmpty()){
+            // get the Roman number's integer representation
+            int romanAsInt = RomanNumerals.getInt(romanNumber.toString().toUpperCase());
+            // and calculate credits for one unit of the goods
+            credits /= romanAsInt;
+        }
 
         goodsToCredits.put(goods, credits);
         return "";
