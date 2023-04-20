@@ -218,7 +218,7 @@ public class Converter {
         for (String term : arr) {
             String numeral = alienTermsToNumerals.get(term);
             if (numeral == null)
-                return INVALID_QUERY_RESPONSE;
+                return String.format("% has not been defined", term);
 
             romanNumber.append(numeral);
         }
