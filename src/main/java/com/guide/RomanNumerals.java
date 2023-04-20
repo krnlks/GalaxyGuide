@@ -12,8 +12,8 @@ public class RomanNumerals {
     public static final int VAL_MAX = 3999;
 
     /**
-     * The complete building blocks to express any Roman number between
-     * 1 and 3999 through concatenation of the defined symbols.
+     * The Roman numbers required to express any Roman number between
+     * 1 and 3999 through concatenation
      */
     private static BiMap<String, Integer> Numbers;
     static {
