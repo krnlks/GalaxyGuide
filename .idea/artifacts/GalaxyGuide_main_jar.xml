@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GalaxyGuide.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GalaxyGuide_main_jar</output-path>
+    <root id="archive" name="GalaxyGuide.main.jar">
+      <element id="module-output" name="GalaxyGuide.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.diffplug.guava/guava-core/19.0.0/854510e17ee7cd0fa179548aa7b5003086a66f84/guava-core-19.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/0.1/f90cbc62dc0c367f7fe164e4857a6de74194e6bc/j2objc-annotations-0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.14/775b7e22fb10026eed3f86e8dc556dfafe35f2d5/animal-sniffer-annotations-1.14.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.diffplug.guava/guava-collect/19.0.0/a129f3beff4fb72132aaaf64bdfed31c7f99a8ed/guava-collect-19.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
