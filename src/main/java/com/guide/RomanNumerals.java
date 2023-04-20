@@ -15,39 +15,39 @@ public class RomanNumerals {
      * The complete building blocks to express any Roman number between
      * 1 and 3999 through concatenation of the defined symbols.
      */
-    private static BiMap<String, Integer> Numerals;
+    private static BiMap<String, Integer> Numbers;
     static {
-        Numerals = HashBiMap.create();
-        Numerals.put("I", 1);
-        Numerals.put("II", 2);
-        Numerals.put("III", 3);
-        Numerals.put("IV", 4);
-        Numerals.put("V", 5);
-        Numerals.put("VI", 6);
-        Numerals.put("VII", 7);
-        Numerals.put("VIII", 8);
-        Numerals.put("IX", 9);
-        Numerals.put("X", 10);
-        Numerals.put("XX", 20);
-        Numerals.put("XXX", 30);
-        Numerals.put("XL", 40);
-        Numerals.put("L", 50);
-        Numerals.put("LX", 60);
-        Numerals.put("LXX", 70);
-        Numerals.put("LXXX", 80);
-        Numerals.put("XC", 90);
-        Numerals.put("C", 100);
-        Numerals.put("CC", 200);
-        Numerals.put("CCC", 300);
-        Numerals.put("CD", 400);
-        Numerals.put("D", 500);
-        Numerals.put("DC", 600);
-        Numerals.put("DCC", 700);
-        Numerals.put("DCCC", 800);
-        Numerals.put("CM", 900);
-        Numerals.put("M", 1000);
-        Numerals.put("MM", 2000);
-        Numerals.put("MMM", 3000);
+        Numbers = HashBiMap.create();
+        Numbers.put("I", 1);
+        Numbers.put("II", 2);
+        Numbers.put("III", 3);
+        Numbers.put("IV", 4);
+        Numbers.put("V", 5);
+        Numbers.put("VI", 6);
+        Numbers.put("VII", 7);
+        Numbers.put("VIII", 8);
+        Numbers.put("IX", 9);
+        Numbers.put("X", 10);
+        Numbers.put("XX", 20);
+        Numbers.put("XXX", 30);
+        Numbers.put("XL", 40);
+        Numbers.put("L", 50);
+        Numbers.put("LX", 60);
+        Numbers.put("LXX", 70);
+        Numbers.put("LXXX", 80);
+        Numbers.put("XC", 90);
+        Numbers.put("C", 100);
+        Numbers.put("CC", 200);
+        Numbers.put("CCC", 300);
+        Numbers.put("CD", 400);
+        Numbers.put("D", 500);
+        Numbers.put("DC", 600);
+        Numbers.put("DCC", 700);
+        Numbers.put("DCCC", 800);
+        Numbers.put("CM", 900);
+        Numbers.put("M", 1000);
+        Numbers.put("MM", 2000);
+        Numbers.put("MMM", 3000);
     }
 
     /** Convert Roman to Arabic number */
@@ -58,7 +58,7 @@ public class RomanNumerals {
             throw new NumberFormatException("Empty string is not allowed");
 
         if (romanNumber.length() == 1)
-            return Numerals.get(romanNumber);
+            return Numbers.get(romanNumber);
 
         List<String> summands = splitUpIntoRomanSummands(romanNumber);
 
@@ -117,11 +117,11 @@ public class RomanNumerals {
         for (String summand : summands) {
             switch (summand.length()){
                 case 1:
-                    sum += Numerals.get(summand);
+                    sum += Numbers.get(summand);
                     break;
                 case 2:
-                    int addend = Numerals.get(summand.substring(1,2))
-                            - Numerals.get(summand.substring(0,1));
+                    int addend = Numbers.get(summand.substring(1,2))
+                            - Numbers.get(summand.substring(0,1));
                     sum += addend;
                     break;
                 default:
@@ -143,7 +143,7 @@ public class RomanNumerals {
             // Already add the next symbol
             next = numerals.substring(i, i+1);
             // Small value preceding large value? Then that's our next summand
-            if (i+1 < numerals.length() && Numerals.get(numerals.substring(i, i+1)) < Numerals.get(numerals.substring(i+1, i+2))) {
+            if (i+1 < numerals.length() && Numbers.get(numerals.substring(i, i+1)) < Numbers.get(numerals.substring(i+1, i+2))) {
                 next = next.concat(numerals.substring(i+1, i+2));
                 i++;
             }
@@ -156,7 +156,7 @@ public class RomanNumerals {
         checkValidNumber(i);
 
         if (Helpers.getNoOfDigits(i) == 1)
-            return String.valueOf(Numerals.inverse().get(i));
+            return String.valueOf(Numbers.inverse().get(i));
 
         List<Integer> parts = getParts(i);
 
@@ -205,7 +205,7 @@ public class RomanNumerals {
         String romanNumber = "";
 
         for (int i : parts){
-            romanNumber = romanNumber.concat(Numerals.inverse().get(i));
+            romanNumber = romanNumber.concat(Numbers.inverse().get(i));
         }
 
         return romanNumber;
