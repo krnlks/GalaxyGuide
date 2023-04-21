@@ -2,9 +2,14 @@
 
 Willkommen zu Convo, dem intergalaktischen Umrechner für Nummern und Einheiten!
 
-Dies ist eine kleine Kommandozeilen-Andwendung, die es einem ermöglicht intergalaktische Zahlen und Einheiten umzurechnen.
+Dies ist eine kleine Kommandozeilen-Anwendung, die es einem ermöglicht intergalaktische Zahlen und Einheiten umzurechnen.
 
 Die Anwendung wurde testgetrieben entwickelt, d.h. als erstes wurden die Tests geschrieben und anschließend wurde die Funktionaliät implementiert, sodass die Tests erfolgreich durchlaufen. Später folgten Refactorings.
+
+Das Programm wurde so entwickelt, dass es komplett selbsterklärend sein sollte – sowohl
+hinsichtlich des Codes als auch während der Benutzung über den Chat.
+
+## Queries
 
 Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries:
 
@@ -23,27 +28,47 @@ Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries:
 
     2. Abfrage zuvor definierter Werte von Gütern. Das Ergebnis wird in Credits
        angegeben.
+	   
+<br>
 
-Das Programm wurde so entwickelt, dass es komplett selbsterklärend sein sollte – sowohl
-hinsichtlich des Codes als auch während der Benutzung über den Chat. Im Chat werden per
-Eingabe von “usage” Informationen zur Bedienung ausgegeben. Diese sehen ungefähr wie
-folgt aus. Teile in runden Klammern `()` sind optional und können weggelassen werden.
-Bspw. können bei der Zuweisung von Credits zu einem Gut die intergalaktischen Begriffe (`terms`) weggelassen
-werden. Dadurch werden die Credits für 1 Einheit dieses Guts festgelegt.
-Ebenfalls weggelassen werden können Fragezeichen am Ende von Frage-Queries. <br/><br/>
+Details zur Benutzung dieser Queries finden sich im nächsten Abschnitt.
+
+# Benutzung
+
+Die Formate der Queries lauten wie folgt: <br>
 
 Define foreign terms for Roman numerals in the format  
 `[term] is [Roman numeral]`
 
 Assign a number of credits to an amount of a good in the format  
-`([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number
-of] (credit(s))`
+`([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))`
 
 Convert a sequence of foreign numeral terms to an Arabic number by asking  
 `How much is [p. d. term1] [term2] [...] (?)`
 
 Get the value in Credits of (an amount of) a good by asking  
-`How many Credits is ([p. d. term1] [term2] [...]) [good] (?)`
+`How many Credits is ([p. d. term1] [term2] [...]) [good] (?)` <br><br>
+
+
+Teile in `()` sind optional und können weggelassen werden.
+Bspw. können bei der Zuweisung von Credits zu einem Gut die intergalaktischen Begriffe (`terms`) weggelassen
+werden. Dadurch werden die Credits für 1 Einheit dieses Guts festgelegt.
+Ebenfalls weggelassen werden können Fragezeichen am Ende von Frage-Queries.
+
+## Beispiele
+
+glops is V  
+pirf is C  
+dim is X  
+how much is pirf dim glops ?
+> pirf dim glops is 115
+
+pirf glops Iridium is 1365 Credits  
+how many Credits is glops Iridium?
+> glops Iridium is 65 Credits
+
+how many Credits is Iridium?
+> Iridium is 13 Credits
 
 # Annahmen und Designentscheidungen
 
@@ -111,7 +136,7 @@ Das Projekt wurde mit folgenden Tools entwickelt:
 
 Mit Gradle bzw. dem Wrapper kann per
 `.\gradlew jar`  
-eine ausführbare JAR erzeugt werden.
+eine ausführbare JAR erzeugt werden. Dies führt den in build.gradle angepassten Gradle Task `jar` aus.
 
 # Schwachstellen und Verbesserungspotenzial
 
