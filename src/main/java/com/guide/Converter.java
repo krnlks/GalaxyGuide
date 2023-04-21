@@ -293,13 +293,13 @@ public class Converter {
                 "'([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))'\n");
     }
 
-    private static void printCreditsPerAmountOfGoodInfo() {
-        System.out.println("Get the value in Credits of an amount of a good by asking\n" +
-                "'How many Credits is [p. d. term1] [term2] ... [good] (?)'\n");
-    }
-
     private static void printNumberConversionInfo() {
         System.out.println("Convert a sequence of foreign numeral terms to an Arabic number by asking\n" +
                 "'How much is [p. d. term1] [term2] [...] (?)'\n");
+    }
+
+    private static void printCreditsPerAmountOfGoodInfo() {
+        System.out.println("Get the value in Credits of an amount of a good by asking\n" +
+                "'How many Credits is ([p. d. term1] [term2] [...]) [good] (?)'\n");
     }
 }
