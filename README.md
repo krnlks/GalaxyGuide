@@ -7,53 +7,33 @@ Dies ist eine kleine Kommandozeilen-Anwendung, die es einem ermöglicht intergal
 Die Anwendung wurde testgetrieben entwickelt, d.h. als erstes wurden die Tests geschrieben und anschließend wurde die Funktionaliät implementiert, sodass die Tests erfolgreich durchlaufen. Später folgten Refactorings.
 
 Das Programm wurde so entwickelt, dass es komplett selbsterklärend sein sollte – sowohl
-hinsichtlich des Codes als auch während der Benutzung über den Chat.
+hinsichtlich des Codes als auch während der Benutzung über den Chat. Im Chat schickt man Queries an den Bot. Dazu mehr im nächsten Abschnitt.
 
-## Queries
+# Queries
 
-Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries:
+Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries. Teile in `()` sind optional und können weggelassen werden.
 
 1. Definitions-Queries:
-    1. Definition von intergalaktischen Begriffen (alienTerms) für römische
-       Zahlzeichen
-    2. Definition des Wertes eines Guts in Form einer Anzahl Credits
-        - Es können Wertentsprechungen für beliebige Anzahlen eines Guts
-          angegeben werden. Intern wird die Anzahl Credits für 1 Einheit dieses
-          Guts gespeichert.
+
+    1. Intergalaktische Begriffe (*alienTerm* oder *term*) für römische Zahlzeichen definiert man in der Form  
+	`[term] is [Roman numeral]`
+	
+    2. Gütern können Werte in Form einer Anzahl Credits zugewiesen werden.  
+	Dabei können diese Credits einer Anzahl dieses Guts zugewiesen werden, die als durch Leerzeichen getrennte Sequenz
+       von intergalaktischen Begriffen angegeben wird.  
+	Intern merkt sich der Converter immer die Anzahl Credits für 1 Einheit dieses Guts.  
+	`([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))`
 
 2. Frage-Queries:
-    1. Nummer-Konvertierungs-Query. Eine durch Leerzeichen getrennten Sequenz
-       von alienTerms wird als römische Zahl interpretiert. Diese wird anschließend
-       in eine arabische Zahl umgerechnet.
+
+    1. Nummer-Konvertierungs-Query. Eine Sequenz von intergalaktischen Begriffen wird als römische Zahl interpretiert. Diese wird anschließend
+       in eine arabische Zahl umgerechnet.  
+	`How much is [p. d. term1] [term2] [...] (?)`
 
     2. Abfrage zuvor definierter Werte von Gütern. Das Ergebnis wird in Credits
-       angegeben.
-	   
-<br>
-
-Details zur Benutzung dieser Queries finden sich im nächsten Abschnitt.
-
-# Benutzung
-
-Die Formate der Queries lauten wie folgt: <br>
-
-Define foreign terms for Roman numerals in the format  
-`[term] is [Roman numeral]`
-
-Assign a number of credits to an amount of a good in the format  
-`([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))`
-
-Convert a sequence of foreign numeral terms to an Arabic number by asking  
-`How much is [p. d. term1] [term2] [...] (?)`
-
-Get the value in Credits of (an amount of) a good by asking  
-`How many Credits is ([p. d. term1] [term2] [...]) [good] (?)` <br><br>
-
-
-Teile in `()` sind optional und können weggelassen werden.
-Bspw. können bei der Zuweisung von Credits zu einem Gut die intergalaktischen Begriffe (`terms`) weggelassen
-werden. Dadurch werden die Credits für 1 Einheit dieses Guts festgelegt.
-Ebenfalls weggelassen werden können Fragezeichen am Ende von Frage-Queries.
+       angegeben.  
+	`How many Credits is ([p. d. term1] [term2] [...]) [good] (?)`
+	
 
 ## Beispiele
 
@@ -116,10 +96,7 @@ Aufteilung der Tests für `RomanNumerals`:
       können (1 bis 3999) in eine römische Zahl und anschließend zurück,
       was wieder die ursprüngliche Zahl ergeben muss.
 
-`ConverterTest` enthält Tests für die 2 Frage-Queries. Für die zwei Definitions-Queries (Definition von intergalaktischen Begriffen
-(`alienTerms`) sowie von Credits pro Ware) gibt es keinen direkten Test. Die
-Korrektheit der Definitionen ist jedoch implizit durch die Tests der beiden
-Frage-Queries sichergestellt, deren erster Schritt die Definitions-Queries sind.
+`ConverterTest` enthält Tests für die 2 Frage-Queries. Für die zwei Definitions-Queries gibt es keinen direkten Test. Die Korrektheit der Definitionen ist jedoch implizit durch die Tests der beiden Frage-Queries sichergestellt, deren erster Schritt die Definitions-Queries sind.
 
 # Tools
 
@@ -134,9 +111,12 @@ Das Projekt wurde mit folgenden Tools entwickelt:
 
 # Build-Anleitung
 
-Mit Gradle bzw. dem Wrapper kann per
+Mit Gradle bzw. dem Wrapper kann per  
 `.\gradlew jar`  
 eine ausführbare JAR erzeugt werden. Dies führt den in build.gradle angepassten Gradle Task `jar` aus.
+
+Mit dem Gradle Wrapper können diverse Tasks ausgeführt werden. Eine Übersicht erhält man per  
+`.\gradlew tasks`  
 
 # Schwachstellen und Verbesserungspotenzial
 
@@ -155,11 +135,10 @@ eine ausführbare JAR erzeugt werden. Dies führt den in build.gradle angepasste
 - Regexes hätten den Vorteil, dass sie sehr kompakt sind und zwei Probleme auf
   einmal lösen: Sie würden sicherstellen, dass Query-Strings dem gewünschten
   Format entsprechen, und m.H.v. Matching Groups sollte es möglich sein, gleich alle
-  Komponenten zu erhalten.
-  Weitere Dinge, die ich einbauen bzw. ändern würde:
-- Einen Query, der eine Liste der definierten Begriffe und der entsprechenden
+  Komponenten zu erhalten.  
+- Einbau eines Query, der eine Liste der definierten Begriffe und der entsprechenden
   römischen Zahlzeichen ausgibt
-- Einen Query, der alle Güter und ihren Wert in Credits ausgibt
+- Einbau eines Query, der alle Güter und ihren Wert in Credits ausgibt
 - Verbesserung der Lesbarkeit und Wartbarkeit durch Extraktion von Methoden aus
   längeren Methoden wie `generateNumberConversionQueryResponse()`,
   `generateCreditsPerGoodsQueryResponse()`
