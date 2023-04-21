@@ -100,11 +100,11 @@ Frage-Queries sichergestellt, deren erster Schritt die Definitions-Queries sind.
 
 Das Projekt wurde mit folgenden Tools entwickelt:
 - IDE: IntelliJ IDEA 2023.1 (Community Edition)
-- Buildsystem: Gradle Version 8.0
+- Build tool: Gradle Version 8.0
 - Java JDK: Corretto 19.0.2
 
 # Dependencies
-- Guava für die BiMap / HashBiMap RomanNumerals.Numbers
+- Guava für die BiMap / HashBiMap `RomanNumerals.Numbers`
 - JUnit 5 / JUnit Jupiter für die Unit Tests
 
 # Build-Anleitung
@@ -115,13 +115,13 @@ eine ausführbare JAR erzeugt werden.
 
 # Schwachstellen und Verbesserungspotenzial
 
-- Der Converter rechnet immer entlang des Pfades
-  Arabische Zahlen ↔ römische Zahlen ↔ Alien-Labels für römische Zahlen
+- Der `Converter` rechnet immer entlang des Pfades
+  _Arabische Zahlen ↔ römische Zahlen ↔ Alien-Labels für römische Zahlen_
   um
 - Das ist umständlich / aufwendig. Wahrscheinlich lohnt es sich von einem geeigneten
-  bestehenden Typ, z.B. NumberFormat, zu erben, um direkt mit römischen Zahlen
+  bestehenden Typ, z.B. `NumberFormat`, zu erben, um direkt mit römischen Zahlen
   rechnen zu können.
-- Dadurch sollten sich die Umrechnungen Arabische Zahlen ↔ römische Zahlen
+- Das sollte die Umrechnungen _Arabische Zahlen ↔ römische Zahlen_
   vereinfachen und die Wartbarkeit und Leserlichkeit des Codes erhöhen.
 - Für die Verarbeitung der eingegebenen Queries habe ich versucht Regexes und
   Matching groups einzusetzen, hatte jedoch Schwierigkeiten mit den gematchten
