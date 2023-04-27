@@ -56,15 +56,18 @@ Für die Konvertierung zwischen römischen und arabischen Zahlen hatte ich zunä
 Aufgabenstellung Details zu römischen Zahlen und deren Regeln beinhaltet, ist mir später
 bewusst geworden, dass ich diese Funktionalität sicher selbst programmieren soll, was ich
 dann auch getan habe.
+
 Da in der Aufgabenstellung die Rede von “common metals and dirt” ist, habe ich mich
-entschieden zu verallgemeinern, und so behandelt das Programm nun allgemein goods
+entschieden zu verallgemeinern, und so behandelt das Programm nun allgemein *goods*
 (Güter/Waren).
+
 Queries mit Zuweisungen von Credits zu Gütern werden intern umgerechnet in die Anzahl
 Credits für 1 Einheit dieses Guts.
+
 Ich habe 30 römische Zahlen definiert. Ich wäre auch mit nur 14 ausgekommen (I bis X; L,
 C, D, M), hätte dann aber immer die Basiszahlen 10 und 5 skalieren müssen (I → X → C →
-M; V → L → D). Bsp.: 90 = 9 x 10, also alle Zahlzeichen in 9 (I,X) um Faktor 10 hochskaliert:
-I x 10 = 10 = X; X x 10 = 100 = C. Somit ist IX x 10 = XC.
+M; V → L → D). Bsp.: 90 = 9 x 10, also alle Zahlzeichen in 9 (I,X) um Faktor 10 hochskaliert:  
+I x 10 = 10 = X; X x 10 = 100 = C. Somit ist IX x 10 = XC.  
 Stattdessen habe ich mich für die Definition 16 zusätzlicher Zahlen entschieden. So können
 alle möglichen Summanden einer römischen Zahl direkt nachgeschlagen werden.
 
@@ -77,8 +80,8 @@ Enthält Funktionalität für die Umrechnung zwischen arabischen und römischen 
 ## Class Converter
 
 - Enthält den Chatbot bzw. die Benutzerschnittstelle des Umrechners
-- Einstiegspunkt ist die main function. Von dort werden im Normalfall Queries des
-  Benutzers mit Converter.submitQuery() empfangen und verarbeitet, und
+- Einstiegspunkt ist die `main` function. Von dort werden im Normalfall Queries des
+  Benutzers mit `Converter.submitQuery()` empfangen und verarbeitet, und
   anschließend wird ggf. eine Response zurückgegeben und ausgegeben.
 - Falls der Query die Definition eines Begriffs für ein römisches Zahlzeichen oder eine
   Definition des Wertes (Credits) einer Ware war, so wird keine Response erzeugt.
