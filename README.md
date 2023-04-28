@@ -99,7 +99,7 @@ Aufteilung der Tests für `RomanNumerals`:
       können (1 bis 3999) in eine römische Zahl und anschließend zurück,
       was wieder die ursprüngliche Zahl ergeben muss.
 
-`ConverterTest` enthält Tests für die 2 Frage-Queries. Für die zwei Definitions-Queries gibt es keinen direkten Test. Die Korrektheit der Definitionen ist jedoch implizit durch die Tests der beiden Frage-Queries sichergestellt, deren erster Schritt die Definitions-Queries sind.
+`ConverterTest` enthält Tests für die 2 Frage-Queries. Für die zwei Definitions-Queries gibt es keinen direkten Test. Die Korrektheit der Definitionen ist durch die Tests der beiden Frage-Queries sichergestellt, deren erster Schritt die Definitions-Queries sind.
 
 # Tools
 
@@ -124,7 +124,7 @@ Mit dem Gradle Wrapper können diverse Tasks ausgeführt werden. Eine Übersicht
 # Schwachstellen und Verbesserungspotenzial
 
 - Der `Converter` rechnet immer entlang des Pfades
-  _Arabische Zahlen ↔ römische Zahlen ↔ Alien-Labels für römische Zahlen_
+  _Arabische Zahlen ↔ römische Zahlen ↔ intergalaktische Begriffe_
   um
 - Das ist umständlich / aufwendig. Wahrscheinlich lohnt es sich von einem geeigneten
   bestehenden Typ, z.B. `NumberFormat`, zu erben, um direkt mit römischen Zahlen
@@ -143,5 +143,5 @@ Mit dem Gradle Wrapper können diverse Tasks ausgeführt werden. Eine Übersicht
   römischen Zahlzeichen ausgibt
 - Einbau eines Query, der alle Güter und ihren Wert in Credits ausgibt
 - Verbesserung der Lesbarkeit und Wartbarkeit durch Extraktion von Methoden aus
-  längeren Methoden wie `generateNumberConversionQueryResponse()`,
-  `generateCreditsPerGoodsQueryResponse()`
+  längeren Methoden wie `Converter.generateNumberConversionQueryResponse()`,
+  `.generateCreditsPerGoodsQueryResponse()`
