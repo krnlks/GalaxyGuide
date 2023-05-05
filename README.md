@@ -14,13 +14,14 @@ wurde dieses Programm entwickelt.
 Die Anwendung wurde testgetrieben entwickelt, d.h. als erstes wurden die Tests geschrieben und anschließend wurde die Funktionaliät implementiert, sodass die Tests erfolgreich durchlaufen. Später folgten Refactorings.
 
 Das Programm wurde so entwickelt, dass es komplett selbsterklärend sein sollte – sowohl
-hinsichtlich des Codes als auch während der Benutzung über den Chat. Im Chat schickt man Queries an den Bot. Dazu mehr im nächsten Abschnitt.
+hinsichtlich des Codes als auch während der Benutzung über den Chat.  
+Was der Chatbot leistet, wird im nächsten Abschnitt erläutert.
 
-# Queries
+# Definitionen und Queries
 
-Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries. Teile in `()` sind optional und können weggelassen werden.
+Der Chatbot versteht insgesamt vier Formen von Nutzereingaben: Zwei Arten von Definitionen sowie zwei verschiedene Queries. Teile in `()` sind optional und können weggelassen werden.
 
-1. Definitions-Queries:
+1. Definitionen:
 
     1. Intergalaktische Begriffe (*alienTerm* oder *term*) für römische Zahlzeichen definiert man in der Form  
 	`[term] is [Roman numeral]`
@@ -31,7 +32,7 @@ Es gibt zwei Arten von Queries und insgesamt vier verschiedene Queries. Teile in
 	Intern merkt sich der Converter immer die Anzahl Credits für 1 Einheit dieses Guts.  
 	`([previously defined term1] [p. d. term2] [...]) [good] (is) [Arabic number of] (credit(s))`
 
-2. Frage-Queries:
+2. Queries:
 
     1. Nummer-Konvertierungs-Query. Eine Sequenz von intergalaktischen Begriffen wird als römische Zahl interpretiert. Diese wird anschließend
        in eine arabische Zahl umgerechnet.  
