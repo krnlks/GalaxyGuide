@@ -256,7 +256,7 @@ public class Converter {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
-        System.out.println("Welcome to Convo, the Intergalactic Numbers and Units Converter!\n\n" +
+        System.out.println("Welcome to Convo, the Intergalactic Numbers Converter!\n\n" +
                 "Type 'usage' for usage info and 'exit' to quit.\n");
 
         while (!exit) {

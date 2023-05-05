@@ -1,8 +1,15 @@
 # Einleitung
 
-Willkommen zu Convo, dem intergalaktischen Umrechner für Nummern und Einheiten!
+Dies ist eine kleine Kommandozeilen-Anwendung, die es einem ermöglicht mit intergalaktischen Zahlbegriffen zu rechnen
+und Gütern für den intergalaktischen Handel Werte zuzuweisen.
 
-Dies ist eine kleine Kommandozeilen-Anwendung, die es einem ermöglicht intergalaktische Zahlen und Einheiten umzurechnen.
+Kurioserweise haben sich innerhalb unserer Galaxie römische Zahlen trotz ihrer bekannten Unzulänglichkeiten als das
+Standard-Zahlsystem etabliert. Allerdings haben die römischen Zahlzeichen wie wir sie kennen überall unterschiedliche Namen.  
+Bspw. könnte römisch `C` auf Pluto `urr` genannt werden und auf Neptun `grsin` heißen.  
+Römisch `V` könnte auf Jupiter `glimb` und auf Proxima Centauri `drömdrl` heißen.
+
+Um sich das alles nicht merken zu müssen, und um mit diesen Begriffen als römische Zahlen rechnen zu können,
+wurde dieses Programm entwickelt. 
 
 Die Anwendung wurde testgetrieben entwickelt, d.h. als erstes wurden die Tests geschrieben und anschließend wurde die Funktionaliät implementiert, sodass die Tests erfolgreich durchlaufen. Später folgten Refactorings.
 
@@ -131,6 +138,7 @@ Mit dem Gradle Wrapper können diverse Tasks ausgeführt werden. Eine Übersicht
   rechnen zu können.
 - Das sollte die Umrechnungen _Arabische Zahlen ↔ römische Zahlen_
   vereinfachen und die Wartbarkeit und Leserlichkeit des Codes erhöhen.
+- Persistierung der definierten Zahl-Begriffe und Güter nach Programmende 
 - Für die Verarbeitung der eingegebenen Queries habe ich versucht Regexes und
   Matching groups einzusetzen, hatte jedoch Schwierigkeiten mit den gematchten
   Groups und habe sie dann wieder entfernt. Die Eingabe-Strings werden nun ohne
